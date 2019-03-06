@@ -75,7 +75,7 @@ A =
      4    15    14     1
 ```
 
-并访问第 2 行和第 3 行的元素。
+并访问第 2 行和第 3 列的元素。
 ```
 >> A(2, 3)
 
@@ -160,12 +160,12 @@ ans =
 
 ```
 >> t = linspace(0, 2*pi, 512);
->> [u,v] = meshgri(t);
+>> [u,v] = meshgrid(t);
 >> a = -0.4; b = .5; c = .1;
 >> n = 3;
 >> x = (a*(1 - v/(2*pi)) .*(1+cos(u)) + c) .* cos(n*v);
 >> y = (a*(1 - v/(2*pi)) .*(1+cos(u)) + c) .* sin(n*v);
->> z = b*v/(2*pi) + a*(1 - v/(2*pi)) .* sin (u);
+>> z = b*v/(2*pi) + a*(1 - v/(2*pi)) .* sin(u);
 >> surf(x,y,z,y)
 >> axis off
 >> axis equal
@@ -177,7 +177,7 @@ ans =
 >> view([-160 25])
 ```
 
-![](./figures/plot_2.jpg)
+![](./figures/plot_3.jpg)
 
 ### [向量化操作][vec]
 
@@ -240,7 +240,7 @@ Elapsed time is 0.461819 seconds.
 
 三、 程序代码
 
-四、 实验结果
+四、 实验结果与分析
 
 ```
 
@@ -282,7 +282,7 @@ $$
  L&=-\begin{bmatrix} 0 & 0 & \cdots & 0\\
 a_{21} & 0 &  \ddots & \vdots\\
 \vdots & \ddots & \ddots & 0\\
-a_{n1} & \cdots &  a_{n,n-1} & 0\end{bmatrix},
+a_{n1} & \cdots &  a_{n,n-1} & 0\end{bmatrix},\\ 
 U&=-\begin{bmatrix} 0 & a_{12} &  \cdots & a_{1n}\\
 0 & 0 & \ddots & \vdots\\
 \vdots & \ddots & \ddots  & a_{n-1,n}\\
@@ -293,12 +293,12 @@ $$
 则
 
 $$ 
-x={\color{red}D^{-1}(L+U)}x+{\color{blue}D^{-1}b}
+x=\color{red}{D^{-1}(L+U)}x+\color{blue}{D^{-1}b}
 $$
 
 Jacobi 迭代公式为
 $$
-x^{(k+1)}={\color{red}B}x^{(k)}+{\color{blue}f}
+x^{(k+1)}=\color{red}{B}x^{(k)}+\color{blue}{f}
 $$
 
 **三、程序代码：** 
@@ -351,7 +351,7 @@ ylim([0, 5])
 title('Jacobi 迭代结果')
 ```
 
-**三、实验结果与分析** 
+**四、实验结果与分析** 
 
 在命令窗口输入 `test_jacobi`, 回车
 
@@ -391,11 +391,9 @@ title('Jacobi 迭代结果')
 
 在上述 Jacobi 迭代实验基础上, 完成以下实验任务：
 
-1. 下载线性系统 [Ax=b](./data/ls.mat), 用如下命令导入 Matlab
+1. 下载线性系统 [Ax=b](./data/ls.mat), 用如下命令可把数据导入 Matlab：
 
 ```
->> load ls.mat
->> whos
 >> load ls.mat
 >> whos
   Name         Size               Bytes  Class     Attributes
@@ -428,6 +426,7 @@ var gitment = new Gitment({
     client_secret: '4e6f74b82a7ac18671c7e9e0d17a1ceb9359a5ad',
   },
 })
+
 gitment.render('container')
 </script>
 
