@@ -137,39 +137,47 @@ ans =
 
 ### 画图 
 
+画一条曲线
+
 ```
 >> x = -4:0.05:4;
 >> y = sin(x);
->> plotx,y）
+>> plot(x, y)
 ```
+
+![](./figures/plot_1.jpg)
 
 ```
 >> x = 0:.01:2*pi;
 >> y1 = sin(x);
->> y2 = sin2*x）;
->> y3 = sin4*x）;
->> plotx, [y1; y2; y3]）
->> legend'y=sin（x）', 'y=sin (2x)','y=sin (4x)')
+>> y2 = sin(2*x);
+>> y3 = sin(4*x);
+>> plot(x, [y1; y2; y3])
+>> legend('y=sin(x)', 'y=sin(2x)','y=sin(4x)')
 ```
 
+![](./figures/plot_2.jpg)
+
 ```
->> t = linspace（0, 2*pi, 512）;
->> [u,v] = meshgrid (t);
+>> t = linspace(0, 2*pi, 512);
+>> [u,v] = meshgri(t);
 >> a = -0.4; b = .5; c = .1;
 >> n = 3;
->> x =（a*(1 - v/(2*pi）) .*（1+cos（u）) + c) .* cos（n*v）;
->> y =（a*(1 - v/(2*pi）) .*（1+cos（u）) + c) .* sin（n*v）;
->> z = b*v/（2*pi） + a*（1 - v/(2*pi）) .* sin (u);
->> surf（x,y,z,y）
+>> x = (a*(1 - v/(2*pi)) .*(1+cos(u)) + c) .* cos(n*v);
+>> y = (a*(1 - v/(2*pi)) .*(1+cos(u)) + c) .* sin(n*v);
+>> z = b*v/(2*pi) + a*(1 - v/(2*pi)) .* sin (u);
+>> surf(x,y,z,y)
 >> axis off
 >> axis equal
->> colormap（hsv（1024）)
+>> colormap(hsv(1024))
 >> shading interp
 >> material shiny
 >> lighting phong
->> camlight（'left', 'infinite'）
->> view（[-160 25]）
+>> camlight('left', 'infinite')
+>> view([-160 25])
 ```
+
+![](./figures/plot_2.jpg)
 
 ### [向量化操作][vec]
 
@@ -332,13 +340,49 @@ b  = [7 -21 15]';
 x0 = [0 0 0]';
 tol = 1e-7;
 x = jacobi(A, b, x0, 1e-7);
+% 打印迭代结果
 fprintf('      x(1)             x(2)            x(3)\n');
 fprintf('%12.8e   %12.8e    %12.8e\n', x);
+
+% 画图
+plot(1:k, x)
+legend('x(1)=2', 'x(2)=4', 'x(3)=3')
+ylim([0, 5])
+title('Jacobi 迭代结果')
 ```
 
 **三、实验结果与分析** 
 
-在命令窗口输入
+在命令窗口输入 `test_jacobi`, 回车
+
+```
+>> test_jacobi
+      x(1)             x(2)            x(3)
+0.00000000e+00   0.00000000e+00    0.00000000e+00
+1.75000000e+00   2.62500000e+00    3.00000000e+00
+1.65625000e+00   3.87500000e+00    3.17500000e+00
+1.92500000e+00   3.85000000e+00    2.88750000e+00
+1.99062500e+00   3.94843750e+00    3.00000000e+00
+1.98710937e+00   3.99531250e+00    3.00656250e+00
+1.99718750e+00   3.99437500e+00    2.99578125e+00
+1.99964844e+00   3.99806641e+00    3.00000000e+00
+1.99951660e+00   3.99982422e+00    3.00024609e+00
+1.99989453e+00   3.99978906e+00    2.99984180e+00
+1.99998682e+00   3.99992749e+00    3.00000000e+00
+1.99998187e+00   3.99999341e+00    3.00000923e+00
+1.99999604e+00   3.99999209e+00    2.99999407e+00
+1.99999951e+00   3.99999728e+00    3.00000000e+00
+1.99999932e+00   3.99999975e+00    3.00000035e+00
+1.99999985e+00   3.99999970e+00    2.99999978e+00
+1.99999998e+00   3.99999990e+00    3.00000000e+00
+1.99999997e+00   3.99999999e+00    3.00000001e+00
+```
+
+
+![Jacobi 迭代过程](./figures/jacobi.jpg)
+
+
+计算结果表明，Jacobi 方法对于该问题，可以收敛于真解。
 
 
 
@@ -348,6 +392,7 @@ fprintf('%12.8e   %12.8e    %12.8e\n', x);
 在上述 Jacobi 迭代实验基础上, 完成以下实验任务：
 
 1. 下载线性系统 [Ax=b](./data/ls.mat), 用如下命令导入 Matlab
+
 ```
 >> load ls.mat
 >> whos
@@ -359,6 +404,7 @@ fprintf('%12.8e   %12.8e    %12.8e\n', x);
   b         4225x1                33800  double
   x         4225x1                33800  double
 ```
+
 1. 把上述 Jacobi 迭代函数中的 `x(:, 2) = B*x(:, 1) + f` 语句用 for 循环实现，测量
    计算时间，并与原始代码进行比较。
 
@@ -367,3 +413,21 @@ fprintf('%12.8e   %12.8e    %12.8e\n', x);
 
 
 [vec]: https://ww2.mathworks.cn/help/matlab/matlab_prog/vectorization.html
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css"/>
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+
+<script>
+var gitment = new Gitment({
+  id: 'window.location.pathname', // 可选。默认为 location.href
+  owner: 'weihuayi',
+  repo: 'weihuayi.github.io',
+  oauth: {
+    client_id: '7dd9c9fc3ac45352b55b',
+    client_secret: '4e6f74b82a7ac18671c7e9e0d17a1ceb9359a5ad',
+  },
+})
+gitment.render('container')
+</script>
+
