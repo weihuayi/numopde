@@ -1,0 +1,28 @@
+{
+    "title": "数值代数课件",
+    "description": "这是魏华祎的数值代数课程的课件",
+    "author": "Wei, Huayi",
+    "language": "zh-hans",
+    "gitbook": "3.2.3",
+    "root": ".",
+    "plugins": [
+        "mathjax", 
+        "image-captions", 
+        "fontsettings", 
+        "expandable-chapters-small", 
+        "graph", 
+        "simple-page-toc",
+        "copy-code-button"
+    ],
+    "pluginsConfig": {
+        "fontSettings": {
+            "size": 1
+        },
+        "simple-page-toc": {
+            "maxDepth": 3,
+            "skipFirstH1": true
+        },
+        "mathjax": {
+        }
+    }
+}
