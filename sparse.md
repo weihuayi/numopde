@@ -113,7 +113,7 @@ https://ww2.mathworks.cn/help/matlab/ref/sparse.html
 
 <script>
 var gitment = new Gitment({
-  id: md5(window.location.pathname), // 可选。默认为 location.href
+  id: 'window.location.pathname', // 可选。默认为 location.href
   owner: 'weihuayi',
   repo: 'weihuayi.github.io',
   oauth: {
