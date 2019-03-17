@@ -105,3 +105,22 @@ https://ww2.mathworks.cn/help/matlab/ref/sparse.html
 1. 利用 `S = sparse(i, j, v, m, n)` 命令创建一个 $$ 10000 \times 10000 $$  三对角稀疏矩阵，主对角元素值都为 2, 上下两个次
    对角元素值都为 -1。
 1. 把上面的稀疏矩阵转化为满矩阵，并比较两种形式下矩阵占用的内存。
+
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css"/>
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
+
+<script>
+var gitment = new Gitment({
+  id: 'window.location.pathname', // 可选。默认为 location.href
+  owner: 'weihuayi',
+  repo: 'weihuayi.github.io',
+  oauth: {
+    client_id: '7dd9c9fc3ac45352b55b',
+    client_secret: '4e6f74b82a7ac18671c7e9e0d17a1ceb9359a5ad',
+  },
+})
+
+gitment.render('container')
+</script>
