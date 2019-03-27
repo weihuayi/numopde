@@ -408,8 +408,6 @@ title('Jacobi 迭代结果')
 
 
 
-
-
 [vec]: https://ww2.mathworks.cn/help/matlab/matlab_prog/vectorization.html
 
 
