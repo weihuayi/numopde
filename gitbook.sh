@@ -1,3 +1,7 @@
+cd ../weihuayi.github.io/
+git pull
+
+cd ../numopde/
 git add .
 git commit -m "update" 
 git push 
