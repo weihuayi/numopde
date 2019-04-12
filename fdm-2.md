@@ -1,6 +1,5 @@
 # 一维热传导问题的有限差分算法实现
 
-
 ## 算法描述
 
 ## Matlab 实现
@@ -75,7 +74,7 @@ end
 %
 % 作者：魏华祎 <weihuayi@xtu.edu.cn> 
 
-pde = model_data(); %模型数据结构体
+pde = model_data(0, 0.1, 0, 1); %模型数据结构体
 
 % 向前差分格式
 [X,T,U] = heat_equation_fd1d(100,10000,pde,'forward');
