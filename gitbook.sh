@@ -1,5 +1,4 @@
-CHANGED=$(git diff-index --name-only HEAD --)
-if [ ! -z $CHANGED ];then
+if [[ `git status --porcelain` ]]; then
     cd ../weihuayi.github.io/
     git pull
     cd ../numopde/
