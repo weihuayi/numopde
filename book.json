@@ -6,13 +6,16 @@
     "gitbook": "3.2.3",
     "root": ".",
     "plugins": [
+        "-highlight", 
+        "prism", 
+        "prism-themes",
         "mathjax", 
         "image-captions", 
         "fontsettings", 
         "expandable-chapters-small", 
-        "graph", 
         "simple-page-toc",
-        "copy-code-button"
+        "copy-code-button",
+        "ga"
     ],
     "pluginsConfig": {
         "fontSettings": {

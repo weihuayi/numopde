@@ -20,8 +20,8 @@ $$
 function pde = model_data(t0, t1, l, r)
 % 一维热传导问题的数学模型
 
-pde = struct('u_initial',@u_initial,'u_left',@u_left,...
-    'u_right',@u_right,'f',@f,'time_grid',@time_grid,...
+pde = struct('init_solution',@init_solution,'left_solution',@left_solution,...
+    'right',@right_solution,'source',@source,'time_grid',@time_grid,...
     'space_grid',@space_grid,'a',@a);
 
     function [T,tau] = time_grid(NT)
@@ -127,9 +127,9 @@ if r >= 0.5 && ismember(method, {'F','f','forward'})
 end
 
 U = zeros(N,M);
-U(:,1) = pde.u_initial(X);
-U(1,:) = pde.u_left(T);
-U(end,:) = pde.u_right(T);
+U(:,1) = pde.init_solution(X);
+U(1,:) = pde.left_solution(T);
+U(end,:) = pde.right_solution(T);
 switch(method)
     case {'F','f','forward'}
         forward();
@@ -149,7 +149,7 @@ function forward()
     c = ones(N-3,1)*r;
     A = diag(c,-1) + diag(c,1)+diag(d);
     for i = 2:M
-        RHS = tau*pde.f(X,T(i));
+        RHS = tau*pde.source(X,T(i));
         RHS(2) = RHS(2) + r*U(1,i-1);
         RHS(end-1) = RHS(end-1) + r*U(end,i-1);
         U(2:end-1,i)=A*U(2:end-1,i-1)+ RHS(2:end-1);
@@ -162,7 +162,7 @@ function backward()
     c = -ones(N-3,1)*r;
     A = diag(c,-1) + diag(c,1)+diag(d);    
     for i = 2:M
-        RHS = tau*pde.f(X,T(i));
+        RHS = tau*pde.source(X,T(i));
         RHS(2) = RHS(2) + r*U(1,i);
         RHS(end-1) = RHS(end-1) + r*U(end,i);
         U(2:end-1,i)=A\(U(2:end-1,i-1)+ RHS(2:end-1));
@@ -177,7 +177,7 @@ function crank_nicholson()
     A1 = diag(-c,-1) + diag(-c,1)+diag(d1);  
     A0 = diag(c,-1) + diag(c,1) + diag(d2);
     for i = 2:M
-        RHS = tau*pde.f(X,T(i));
+        RHS = tau*pde.source(X,T(i));
         RHS(2) = RHS(2) + 0.5*r*(U(1,i)+U(1,i-1));
         RHS(end-1) = RHS(end-1) + ...
             0.5*r*(U(end,i)+U(end,i-1));

@@ -1,0 +1,591 @@
+\documentclass[14pt,hyperref={CJKbookmarks=true}]{beamer}
+\usepackage[space,noindent]{ctex}
+\usetheme{AnnArbor}
+\setbeamercolor{normal text}{bg=black!10}
+
+
+\useinnertheme{rounded}
+
+%设置被cover的内容不显示
+\setbeamercovered{transparent}
+\beamersetaveragebackground{black!10}
+%\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[triangle]
+\linespread{1.0}%行距
+
+\begin{document}
+\kaishu
+
+\newtheorem{THeorem}{定理}
+\newtheorem{DFfinition}{定义}
+\newtheorem{COrollary}{\hspace{0.6cm}推论}
+\newtheorem{LEmma}{引理}
+\newtheorem{EXample}{例}
+\newtheorem{proposition}{命题}
+\newtheorem{property}{性质}
+\newtheorem{remark}{注}
+%\newtheorem{Remark}{注意}
+\newtheorem{algorithm}{算法}
+
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\theremark}{\arabic{remark}}
+
+\title[]{第 三 章 习 题}
+
+
+%\author{舒适~~彭洁}
+\date{}
+
+
+%\pgfdeclareimage[height=1cm]{institution-logo}{figure/rwthaachenuniversity-whitegray-eps-converted-to.pdf}
+
+%\logo{\pgfuseimage{institution-logo}}
+
+\frame[plain]{\titlepage}
+
+
+\section{第三章习题}
+
+\frame{
+
+{\small
+{\color{red}习题 1}~ 在一般网格剖分下，对微分方程
+\begin{equation}\label{ex3-1.1}
+Lu =  - \frac{d}{{dx}}(p\frac{{du}}{{dx}}) + qu = f,{\text{  }}a < x < b
+\end{equation}
+建立中心差分格式.\vskip 0.2cm
+
+解：{\color{blue}第一步，网格剖分}
+\vskip 0.2cm
+做一般网格剖分：
+$$a = {x_0} < {x_1} <  \cdots  < {x_N} = b$$
+其中，分点
+$${x_i} = {x_{i - 1}} + {h_i},~i = 1,\cdots,N$$
+第 $i$ 个剖分单元的剖分步长
+$${h_i} = {x_i} - {x_{i - 1}},~i = 1,\cdots,N$$
+}}
+
+\frame{
+
+{\small
+{\color{blue}第二步: 节点处微分方程的离散化}
+\vskip 0.2cm
+节点 $x_i$ 处相应的微分方程为
+\begin{equation}\label{ex3-1.2}
+{\left[ { - \frac{d}{{dx}}(p\frac{{du}}{{dx}}) + qu} \right]_{{x_i}}} = f({x_i})
+\end{equation}
+有限差分离散的关键：给出
+$${\left[ { - \frac{d}{{dx}}(p\frac{{du}}{{dx}})} \right]_{{x_i}}}$$
+的离散（近似）公式.
+\begin{center}
+  \includegraphics[height=10mm]{figure/ex-2.jpg}
+\end{center}
+由一阶差商公式有
+$${\left[ { - \frac{d}{{dx}}(p\frac{{du}}{{dx}})} \right]_{{x_i}}} \approx  - \frac{2}{{h{}_i + {h_{i + 1}}}}\left[ {{p_{i + 1/2}}{{\left[ {\frac{{du}}{{dx}}} \right]}_{i + 1/2}} - {p_{i - 1/2}}{{\left[ {\frac{{du}}{{dx}}} \right]}_{i - 1/2}}} \right]$$
+}}
+
+
+\frame{
+
+{\small
+
+而
+$${\left[ {\frac{{du}}{{dx}}} \right]_{x{}_{i + 1/2}}} \approx \frac{{{u_{i + 1}} - {u_i}}}{{{h_{i + 1}}}}{\text{,       }}{\left[ {\frac{{du}}{{dx}}} \right]_{x{}_{i - 1/2}}} \approx \frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}$$
+故
+\begin{equation}\label{ex3-1.3}
+{\left[ { - \frac{d}{{dx}}(p\frac{{du}}{{dx}})} \right]_{{x_i}}} \approx  - \frac{2}{{h{}_i + {h_{i + 1}}}}\left[ {{p_{i + 1/2}}\frac{{{u_{i + 1}} - {u_i}}}{{{h_{i + 1}}}} - {p_{i - 1/2}}\frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}} \right]
+\end{equation}
+把 \eqref{ex3-1.3} 代入 \eqref{ex3-1.2} 可得到如下差分方程
+\begin{equation}\label{ex3-1.4}
+ - \frac{2}{{h{}_i + {h_{i + 1}}}}\left[ {{p_{i + 1/2}}\frac{{{u_{i + 1}} - {u_i}}}{{{h_{i + 1}}}} - {p_{i - 1/2}}\frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}} \right] + {q_i}{u_i} = {f_i}
+\end{equation}
+上式即为 \eqref{ex3-1.1} 的{\color{blue}中心差分格式}.\qed
+}}
+
+
+\frame{
+
+{\small
+{\color{red}习题 2}~求差分方程{\footnotesize\begin{eqnarray}\nonumber
+{L_h}{u_i} &\equiv & - \frac{2}{{h{}_i + {h_{i + 1}}}}\left[ {{p_{i + 1/2}}\frac{{{u_{i + 1}} - {u_i}}}
+{{{h_{i + 1}}}} - {p_{i - 1/2}}\frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}} \right]\\\label{ex3-2.1}
+&& + {r_i}\frac{{{u_{i + 1}} - {u_{i - 1}}}}{{h{}_i + {h_{i + 1}}}} + {q_i}{u_i} = {f_i},~i = 1,\cdots,N - 1
+\end{eqnarray}}
+的截断误差(pp.94).\vskip 0.2cm
+
+解：把 \eqref{ex3-2.1} 中的数值解换成相应真解值后, 左端减右端，有
+{\footnotesize\begin{eqnarray}\nonumber
+R_i(u)&=& L_hu(x_i)-f(x_i)\\\nonumber
+&=& - \frac{2}{h_i + h_{i + 1}}\left[ p(x_{i + 1/2})\frac{u(x_{i + 1}) - u(x_i)}{h_{i + 1}} -
+p(x_{i - 1/2})\frac{u(x_i) -u(x_{i - 1})}{h_i} \right]\\\label{ex3-0}
+&& + r(x_i)\frac{u(x_{i + 1}) - u(x_{i - 1})}{h_i + h_{i + 1}} + q(x_i)u(x_i)-f(x_i)
+\end{eqnarray}}
+利用 Taylor 展开可知：
+{\footnotesize\begin{equation}\label{ex3-1}
+\frac{u(x_{i+1})-u(x_{i-1})}{h_i+h_{i+1}}=[\frac{du}{dx}]_i+\frac{h_{i+1}-h_i}{2}[\frac{d^2u}{dx^2}]_i+O(h^2)
+\end{equation}}
+
+} }
+
+\frame{
+
+{\small {\footnotesize\begin{eqnarray}\nonumber
+p(x_{l-\frac{1}{2}})\frac{u(x_{l})-u(x_{l-1})}{h_l}&=&[p\frac{du}{dx}]_{l-\frac{1}{2}}+\frac{h_l^2}{24}[\frac{d^3u}{dx^3}]_{l-\frac{1}{2}}+O(h_l^3)\\\label{ex3-2}
+&=&[p\frac{du}{dx}]_{l-\frac{1}{2}}+\frac{h_l^2}{24}[\frac{d^3u}{dx^3}]_l+O(h_l^3),~~l=i-1,i
+\end{eqnarray}}
+%{\footnotesize\begin{equation}\label{ex3-3}
+%p(x_{i+\frac{1}{2}})\frac{u(x_{i+1})-u(x_{i})}{h_{i+1}}=[p\frac{du}{dx}]_{i+\frac{1}{2}}+\frac{h_{i+1}^2}{24}[\frac{d^3u}{dx^3}]_i+O(h^3)
+%\end{equation}}
+将 \eqref{ex3-1}, \eqref{ex3-2} 代入 \eqref{ex3-0} 化简可得 (注意
+$h_i+h_{i+1}> h_l, l=i-1, i$)
+{\footnotesize\begin{eqnarray}\nonumber
+R_i(u)&=&-\frac{2}{h_i+h_{i+1}}
+\left([p\frac{du}{dx}]_{i+\frac{1}{2}}+\frac{h_{i+1}^2}{24}[\frac{d^3u}{dx^3}]_i
+-
+[p\frac{du}{dx}]_{i-\frac{1}{2}}-\frac{h_i^2}{24}[\frac{d^3u}{dx^3}]_i
+\right)\\\nonumber && +
+\left([r\frac{du}{dx}]_i+\frac{h_{i+1}-h_i}{2}[r\frac{d^2u}{dx^2}]_i\right)+
+q(x_i)u(x_i)-f(x_i)+O(h^2)\\\nonumber &=&- \frac{2}{h_i + h_{i +
+1}}\left([p\frac{du}{dx}]_{i+\frac{1}{2}}-
+[p\frac{du}{dx}]_{i-\frac{1}{2}}+\frac{h_{i+1}^2-h_i^2}{24}[\frac{d^3u}{dx^3}]_i
+\right)\\ \nonumber && +
+\left([r\frac{du}{dx}]_i+\frac{h_{i+1}-h_i}{2}[r\frac{d^2u}{dx^2}]_i\right)+
+q(x_i)u(x_i)-f(x_i)\\ \label{ex3-3-1} &&+O(h^2)
+\end{eqnarray}}
+又因为
+
+
+
+}
+}
+
+\frame{
+
+{\small {\footnotesize\begin{equation}\label{ex3-4}
+[p\frac{du}{dx}]_{i+\frac{1}{2}}=[p\frac{du}{dx}]_{i}+\frac{h_{i+1}}{2}\frac{d}{dx}[p\frac{du}{dx}]_{i}+
+\frac{h_{i+1}^2}{8}\frac{d^2}{dx^2}[p\frac{du}{dx}]_{i}+O(h_i^3)
+\end{equation}}
+{\footnotesize\begin{equation}\label{ex3-5}
+[p\frac{du}{dx}]_{i-\frac{1}{2}}=[p\frac{du}{dx}]_{i}-\frac{h_{i}}{2}\frac{d}{dx}[p\frac{du}{dx}]_{i}+
+\frac{h_{i}^2}{8}\frac{d^2}{dx^2}[p\frac{du}{dx}]_{i}+O(h_{i+1}^3)
+\end{equation}}
+ \eqref{ex3-4} 和 \eqref{ex3-5} 相减, 得
+{\footnotesize\begin{equation}\label{ex3-5-1}
+[p\frac{du}{dx}]_{i+\frac{1}{2}}-[p\frac{du}{dx}]_{i-\frac{1}{2}}=\frac{h_{i+1}+h_i}{2}\frac{d}{dx}[p\frac{du}{dx}]_{i}+
+\frac{h_{i+1}^2-h_i^2}{8}\frac{d^2}{dx^2}[p\frac{du}{dx}]_{i}+O((h_i+h_{i+1})^3)
+\end{equation}}
+将 \eqref{ex3-5-1} 代入 \eqref{ex3-3-1} 可得
+
+}}
+
+
+
+\frame{
+
+{\small {\footnotesize\begin{eqnarray}\nonumber R_i(u)&=&-
+\frac{2}{h_i + h_{i +
+1}}\left(\frac{h_{i+1}+h_i}{2}\frac{d}{dx}[p\frac{du}{dx}]_{i}+
+\frac{h_{i+1}^2-h_i^2}{8}\frac{d^2}{dx^2}[p\frac{du}{dx}]_{i}\right.\\\nonumber
+&&\left.+\frac{h_{i+1}^2-h_i^2}{24}[\frac{d^3u}{dx^3}]_i \right)+
+\left([r\frac{du}{dx}]_i+\frac{h_{i+1}-h_i}{2}[r\frac{d^2u}{dx^2}]_i\right)\\\nonumber
+&&+ q(x_i)u(x_i)-f(x_i)+O(h^2)\\\nonumber
+&=&-\frac{d}{dx}[p\frac{du}{dx}]_{i}-\frac{h_{i +
+1}-h_i}{4}[\frac{d^2}{dx^2}(p\frac{du}{dx})]_i-\frac{h_{i
++1}-h_i}{12}[p\frac{d^3u}{dx^3}]_i\\\nonumber &&+
+\left([r\frac{du}{dx}]_i+\frac{h_{i+1}-h_i}{2}[r\frac{d^2u}{dx^2}]_i\right)+
+q(x_i)u(x_i)-f(x_i)+O(h^2)\\\nonumber
+&=&\left(-\frac{d}{dx}[p\frac{du}{dx}]_{i}+ [r\frac{du}{dx}]_i+
+q(x_i)u(x_i)-f(x_i)\right)-\frac{h_{i +
+1}-h_i}{4}[\frac{d^2}{dx^2}(p\frac{du}{dx})]_i\\\nonumber
+&&-\frac{h_{i
++1}-h_i}{12}[p\frac{d^3u}{dx^3}]_i+\frac{h_{i+1}-h_i}{2}[r\frac{d^2u}{dx^2}]_i+O(h^2)\\\nonumber
+&=&- (h_{i +
+1}-h_i)\left(\frac{1}{4}[\frac{d^2}{dx^2}(p\frac{du}{dx})]_i +
+\frac{1}{12}[p\frac{d^3u}{dx^3}]_i - \frac{1}{2}[ r\frac{d^2u}{dx^2}
+]_i\right) + O(h^2)
+\end{eqnarray}}\qed
+}
+}
+
+
+\frame{
+
+{\small
+{\color{red}习题 3}~用有限体积法导出如下两点边值问题
+\begin{equation}\label{ex3-3.1}
+\left\{ \begin{array}{l}
+   {Lu =  - \frac{d}{d}(p\frac{{du}}{{dx}}) + r\frac{{du}}{{dx}} + qu = f,{\text{  }}a < x < b}  \\
+   {u(a) = \alpha ,{\text{  }}u(b) = \beta ,}
+\end{array} \right.
+\end{equation}
+的差分格式, 其中,
+$$p \in {C^1}[I], p \geqslant {p_{\min }} > 0, r, q, f \in C(I), q(x) \geqslant 0, I = [a,b]$$
+
+
+解: {\color{blue}第一步, 网格剖分}
+\vskip 0.2cm
+{\color{blue}做一般网格剖分：}
+$$a = {x_0} < {x_1} <  \cdots  < {x_N} = b$$
+其中, 分点
+$${x_i} = {x_{i - 1}} + {h_i}, i = 1,\cdots,N$$
+第 $i$ 个剖分单元的剖分步长
+$${h_i} = {x_i} - {x_{i - 1}}, i = 1,\cdots,N$$
+}}
+
+\frame{
+
+{\small
+{\color{blue}引入对偶剖分}
+$$a = {x_0} < {x_{1/2}} <  \cdots  < {x_{N - 1/2}} < {x_N} = b$$
+其中，分点
+$${x_{i - 1/2}} = {x_i} - \frac{1}{2}{h_i},i = 1,\cdots,N$$
+{\color{blue}第二步, 在微分方程节点 $x_i$ 处的离散化}
+\vskip 0.2cm
+将微分方程
+\begin{equation}\label{ex3-3.2}
+Lu =  - \frac{d}{{dx}}(p\frac{{du}}{{dx}}) + r\frac{{du}}{{dx}} + qu = f,{\text{  a}} < x < b
+\end{equation}
+在节点 $x_i$ 所属的{\color{blue}对偶单元 $[{x_{i - 1/2}},{x_{i + 1/2}}]$} 上积分得：积分方程
+\begin{equation}\label{ex3-3.3}
+W({x_{i - 1/2}}) - W({x_{i + 1/2}}) + \int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {r\frac{{du}}{{dx}}dx}  + \int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {qudx}  = \int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {fdx}
+\end{equation}
+其中
+$$W = p\frac{{du}}{{dx}}$$
+}}
+
+
+\frame{
+
+{\small
+
+下面利用{\color{blue}广义中矩阵公式}得到如下含未知函数的项
+{\footnotesize$$W({x_{i + 1/2}}),W({x_{i - 1/2}}),~\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {r\frac{{du}}{{dx}}dx} ,\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {qudx} $$}
+做进一步的离散.
+\vskip 0.2cm
+注意到 $u' = \frac{w}{p}$, 并利用广义中矩形公式, 可得
+{\footnotesize\begin{equation*}
+{u_l} - {u_{l - 1}} = \int_{{x_{l - 1}}}^{{x_l}}
+{\frac{{w(x)}}{{p(x)}}dx \approx w({x_{l - 1/2}})} \int_{{x_{l -
+1}}}^{{x_l}} {\frac{1}{{p(x)}}dx}, ~~l=i,i+1
+\end{equation*}}
+{\color{blue}注意}~上述 $ w({x_{l - 1/2}}) $ 可视为 $ w(x) $ 在点
+$x_{l - 1/2}$ 处的值，也可视为 $ w(x) $ 在单元 $ [{x_{l - 1}},{x_l}]
+$ 上的平均值（积分意义下的量）.
+
+\vskip 0.2cm 于是有
+{\footnotesize\begin{equation}\label{Pb-B-3.2.6}
+w({x_{l - 1/2}}) \approx {a_l}\frac{{({u_l} - {u_{l-1}})}}{{h{}_l}}
+\end{equation}}
+其中
+{\footnotesize\begin{equation*}
+{a_l} = {\left[ {\frac{1}{{{h_l}}}\int_{{x_{l - 1}}}^{{x_l}} {\frac{1}{{p(x)}}dx} } \right]^{ - 1}}
+\end{equation*}}
+}}
+
+
+
+\frame{
+
+{\small
+类似的利用广义中矩形公式, 有
+\begin{equation*}
+\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {r\frac{{du}}{{dx}}dx}  \approx \frac{{{h_i} + {h_{i + 1}}}}{2}{r_i}{\left[ {\frac{{du}}{{dx}}} \right]_i} \approx \frac{1}{2}{r_i}\left( {{u_{i + 1}} - {u_{i - 1}}} \right)
+\end{equation*}
+%注：上式可以有多种离散格式！
+\begin{equation*}
+\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {qudx}  \approx \frac{{{h_i} + {h_{i + 1}}}}{2}{d_i}{u_i}
+\end{equation*}
+其中
+\begin{equation*}
+{d_i} = \frac{2}{{{h_i} + {h_{i + 1}}}}\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {q(x)dx}
+\end{equation*}
+}}
+
+\frame{
+
+{\small
+综上可得微分方程在节点 $x_i$ 处的离散化格式 (差分方程) 为
+{\footnotesize\begin{equation*}%\label{ex3-3.11}
+ - \left[ {{a_{i + 1}}\frac{{{u_{i + 1}} - {u_i}}}{{{h_{i + 1}}}} - {a_i}\frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}} \right] + \frac{1}{2}{r_i}\left( {{u_{i + 1}} - {u_{i - 1}}} \right) + \frac{{h_i} + {h_{i + 1}}}{2}{d_i}{u_i} = \frac{{h_i} + {h_{i + 1}}}{2}{\varphi _i}
+ \end{equation*}}
+其中
+{\footnotesize\begin{equation*}%\label{ex3.3.12}
+{\varphi _i} = \frac{2}{{({h_i} + {h_{i + 1}})}}\int_{{x_{i - 1/2}}}^{{x_{i + 1/2}}} {f(x)dx}.
+\end{equation*}}
+因此逼近微分方程 \eqref{ex3-3.1} 的差分方程为
+{\footnotesize\begin{equation*}
+\left\{\begin{array}{l}%\label{ex3-3.11}
+ - \left[ {{a_{i + 1}}\frac{{{u_{i + 1}} - {u_i}}}{{{h_{i + 1}}}} - {a_i}\frac{{{u_i} - {u_{i - 1}}}}{{{h_i}}}} \right] + \frac{1}{2}{r_i}\left( {{u_{i + 1}} - {u_{i - 1}}} \right) + \frac{{h_i} + {h_{i + 1}}}{2}{d_i}{u_i} = \frac{{h_i} + {h_{i + 1}}}{2}{\varphi _i}\\
+ \hskip 7cm i=1,2,\cdots, N-1\\
+ u_0=\alpha,~~u_N=\beta.
+ \end{array}\right.
+ \end{equation*}}
+\qed
+}}
+
+\frame{
+
+{\small
+{\color{red}习题 4}~差分方程
+{\footnotesize\begin{equation*}
+ \left\{\begin{array}{l}
+  {L_h}u_i \equiv {a_{0}^{(i)}}{u_i}-{a_{1}^{(i)}}{u_{i - 1}}  - {a_{2}^{(i)}}{u_{i + 1}} = {f_i}, \\
+   \hskip 3.8cm i = 1,\cdots,N - 1\\
+   {u_0} = \alpha ,{u_N} = \beta
+   \end{array}\right.
+\end{equation*}}
+的系数矩阵 $A$ 的第 $i$ 行非 0 元素形如
+{\footnotesize\begin{equation*}%\label{matrix}
+A=\left(\begin{array}{ccccc}
+   {} &  \ddots  & {} & {} & {}  \\
+    \ddots  &  \ddots  & {} & {} & {}  \\
+   {} & {{-a_{1}^{(i)}}} & {{a_{0}^{(i)}}} & {{-a_{2}^{(i)}}} & {}  \\
+   {} & {} & {} &  \ddots  &  \ddots   \\
+   {} & {} & {} &  \ddots  & {}  \end{array}\right)
+\end{equation*}}
+
+}}
+
+\frame{
+
+{\small
+且\vskip 0.2cm (1) {\footnotesize${a_{0}^{(i)}} >
+0,{a_{1}^{(i)}} < 0,{a_{2}^{(i)}} < 0$;}
+ \vskip 0.2cm
+ (2)
+(弱)对角占优性
+{\footnotesize${a_{0}^{(i)}} - \left| {{a_{1}^{(i)}}} \right| - \left| {{a_{2}^{(i)}}} \right| \ge 0,{\rm{ }}i = 2, \cdots ,N - 2$}
+ \vskip 0.2cm
+(3) 严格对角占优性
+{\footnotesize${a_{0}^{(1)}} - \left| {{a_{2}^{(1)}}} \right| > 0,~{a_{0}^{(N-1)}} - \left| {{a_{1}^{(N-1)}}} \right| > 0$} \vskip 0.2cm
+试证明其逆矩阵是非负矩阵, 即矩阵 $A$ 为 $M$ 矩阵. \vskip 0.2cm
+\vskip 0.2cm
+
+{\color{blue}定义：}矩阵 $A=(a_{ij}\in R^{n\times n})$ 称为{\color{blue}$M$ 矩阵}, 如果它满足：
+\vskip 0.2cm
+(i) $a_{ii}>0$, $i=1,2,\cdots,n$;
+\vskip 0.2cm
+(ii) $a_{ij}\le 0, i\neq j, 1\le i,j\le n$;
+\vskip 0.2cm
+(iii) $A$ 是非奇异矩阵;
+\vskip 0.2cm
+(iv) $A^{-1}\ge 0$.
+}}
+
+\frame{
+
+{\small
+{\color{blue}分析：}注意到 $A$ 是对角占优且不可约矩阵, 故 $A$ 非奇异(证明见 "数值计算方法" 教材 pp.138), 因此要证明 $A$ 是 $M$ 矩阵, 只需证明 (iv) 成立即可.
+\vskip 0.2cm
+
+证明: 记 ${A^{ - 1}} = ({\alpha _1}, \cdots {\alpha _{N - 1}})$, 只需证明其任一列向量 ${\alpha _i} \geqslant 0$. 令 ${\alpha _i}= {({u_1}, \cdots ,{u_{N - 1}})^T}$, 因为 $AA^{-1}=E$, 所以 $A\alpha_i=e_i$, 即
+{\footnotesize$$A{\alpha _i} = {e_i} = {(0, \cdots ,0,1,0, \cdots 0)^T}$$
+$ \Leftrightarrow $
+$${L_h}u{}_i \geqslant 0, ~~i = 1,\cdots,N - 1$$
+$${u_0} = 0,~~{u_N} = 0$$}
+所以由极值定理的推论 2 可知 $u_i \geqslant 0$, $i = 1,\cdots,N - 1$.\vskip 0.2cm
+
+({\color{blue}推论 2}~若 ${L_h}u{}_i = {f_i} \ge 0$ $( \le 0), \forall {x_i}\in I_h$, 且 $u{}_0 \ge 0( \le 0)$, $u{}_N \ge 0(\le 0)$, 则 $u_i \ge 0~( \le 0),~\forall {x_i}\in I_h.$)
+}}
+
+
+
+
+
+
+
+
+
+\frame{
+
+{\small {\color{red}习题 1*}~考虑二维 Poisson 方程边值问题
+{\footnotesize\begin{eqnarray}\label{ex-2.0-1} -\Delta
+u&=&f,~~(x,y)\in \Omega\\\label{ex-2.0-2} u|_{\Gamma}&=&\alpha
+\end{eqnarray}}
+其中单位圆域 $\Omega=\{(x,y)| x^2+y^2< 1\}$. 引入极坐标变换
+{\footnotesize
+\begin{eqnarray}\label{ex-2.1}
+\left\{\begin{array}{l}
+      x = r\cos\theta,\\
+      y = r\sin\theta,
+\end{array}\right.~~(r,\theta)\in \hat{\Omega}
+  \end{eqnarray}}
+其中 $\hat{\Omega}=\{(r,\theta)| 0 < r\leq 1; 0\leq
+\theta\leq 2\pi\}$.
+\vskip 0.2cm
+
+试证明边值问题 \eqref{ex-2.0-1}, \eqref{ex-2.0-2}
+在极坐标系下可改写为 (下面简记 $u:=u(x(r,\theta),y(r,\theta))$)
+{\footnotesize
+\begin{eqnarray}\label{ex-2.0-3}
+&&-\Delta_{r,\theta}u=-\left[\frac{1}{r}\frac{\partial}{\partial
+r}\left(r\frac{\partial u} {\partial
+r}\right)+\frac{1}{r^2}\frac{\partial^2u}{\partial
+\theta^2}\right]=f(r,\theta),~(r,\theta)\in
+\hat{\Omega}\\\label{ex-2.0-4}
+&& u(1,\theta)=\alpha(\cos \theta,
+\sin \theta), u(r,0)=u(r,2\pi), r\frac{\partial u}{\partial r}|_{(0,\theta)}=0
+\end{eqnarray}}
+}}
+
+\frame{
+
+{\small 证明: 首先证明边值条件 \eqref{ex-2.0-4} 成立.
+
+为此给出从物理区域 $\Omega$ 到计算区域 $\hat{\Omega}$ 变换的示意图.
+\begin{center}
+\includegraphics[height=25mm]{figure/ex-1.jpg}
+\end{center}
+由上图可见:
+
+\vskip 0.2cm (1) 由于边界 $\Gamma_1$ 和 $\Gamma_2$ 在物理域
+是重合的, 故极坐标下的解函数在 $\Gamma_1$ 和 $\Gamma_2$
+所对应的计算区域边界 $\hat{\Gamma}_1$ 和 $\hat{\Gamma}_2$
+上的函数值应该相等, 即满足如下周期边界条件  $ u(r,0)=u(r,2\pi)$.
+\vskip 0.2cm (2) 由于边界 $\Gamma_3: \{(x,y)|x^2+y^2=1\}$
+所对应的计算区域边界为 $\hat{\Gamma}_3: \{(1,\theta)|\theta\in
+(0,2\pi)\}$, 所以极坐标下的解函数在$\hat{\Gamma}_3$ 应满足边界条件 $
+u(1,\theta)=\alpha(\cos \theta, \sin \theta)$. }}
+
+\frame{
+
+{\small (3) 由于计算域边界 $\hat{\Gamma}_4$ 是物理域边界 $\Gamma_4$
+的极限情形 ($r\rightarrow 0$). 由 $u(0,\theta)$ 在 $(r,\theta)$ 处的
+Taylor 展开式
+$$u(0,\theta)=u(r,\theta)-ru_r(r,\theta)+O(r^2)$$
+可知: 当 $r\rightarrow 0$ 时 (设解函数 $u$ 在原点处连续),
+$$ru_r(r,\theta)=u(r,\theta)-u(0,\theta)+O(r^2)\rightarrow 0$$
+因此极坐标下的解函数在边界$\hat{\Gamma}_4$ 上应满足边界条件
+$$r\frac{\partial u}{\partial r}|_{(0,\theta)}=0$$
+
+}}
+
+\frame{
+
+{\small
+ 接着证明方程 \eqref{ex-2.0-3}成立. 为此先给出变换 \eqref{ex-2.1} 的逆变换.\vskip 0.2cm
+
+当 $x>0,y>0$ 时, $\theta \in (0,\frac{\pi}{2})$, 变换 \eqref{ex-2.1} 的逆变换为
+{\footnotesize\begin{eqnarray}\label{ex-2.2}
+ \begin{cases}
+      r = \sqrt{x^2+y^2}, \\
+      \theta = \arctan(\frac{y}{x}),
+ \end{cases}
+\end{eqnarray}}
+当 $x<0,y\ge 0$ 时, $\theta \in (\frac{\pi}{2},\pi]$, 变换 \eqref{ex-2.1} 的逆变换为
+{\footnotesize\begin{eqnarray*}%\label{ex-2.3}
+ \begin{cases}
+      r = \sqrt{x^2+y^2}, \\
+      \theta =\pi+ \arctan(\frac{y}{x}),
+ \end{cases}
+\end{eqnarray*}}
+当 $x< 0,y<0$ 时, $\theta \in (\pi,\frac{3\pi}{2})$, 变换 \eqref{ex-2.1} 的逆变换为
+{\footnotesize\begin{eqnarray*}%\label{ex-2.4}
+ \begin{cases}
+      r = \sqrt{x^2+y^2}, \\
+      \theta =\pi+ \arctan(\frac{y}{x}),
+ \end{cases}
+\end{eqnarray*}}
+当 $x>0,y<0$ 时, $\theta \in (\frac{3\pi}{2},2\pi)$, 变换 \eqref{ex-2.1} 的逆变换为
+{\footnotesize\begin{eqnarray*}%\label{ex-2.5}
+ \begin{cases}
+      r = \sqrt{x^2+y^2}, \\
+      \theta =2\pi+ \arctan(\frac{y}{x}),
+ \end{cases}
+\end{eqnarray*}}
+
+}}
+
+
+
+\frame{
+
+{\small
+下面以 $x>0, y>0$ 为例证明, 其他情况的结果是一样的.
+
+  由 (\ref{ex-2.2}) 可知
+  \begin{equation*}
+    \frac{\partial r}{\partial x} = \frac{1}{2}\frac{2x}{\sqrt{x^2+y^2}} =\frac{x}{r} =\cos\theta.
+  \end{equation*}
+  \begin{equation*}
+    \frac{\partial\theta}{\partial x} = \frac{1}{1+(\frac{y}{x})^2}\cdot \frac{-y}{x^2} =\frac{-y}{r^2}=\frac{-\sin\theta}{r}.
+  \end{equation*}
+  由以上两式, 有
+  \begin{eqnarray}\label{ex-2.3}
+    \frac{\partial w}{\partial x} = \cos\theta\frac{\partial w}{\partial r}+
+    (\frac{-\sin\theta}{r})\frac{\partial w}{\partial\theta}.
+  \end{eqnarray}
+同理,
+  \begin{equation*}
+    \frac{\partial r}{\partial y} = \frac{1}{2}\frac{2y}{\sqrt{x^2+y^2}} =\frac{y}{r} =\sin\theta.
+  \end{equation*}
+  \begin{equation*}
+    \frac{\partial\theta}{\partial y} = \frac{1}{1+(\frac{y}{x})^2}\cdot \frac{1}{x} =\frac{x}{r^2}=\frac{\cos\theta}{r}.
+  \end{equation*}
+
+}}
+
+\frame{
+
+{\small
+由上两式可得
+\begin{eqnarray}\label{ex-2.4}
+    \frac{\partial w}{\partial y} = \sin\theta\frac{\partial w}{\partial r}+
+    (\frac{\cos\theta}{r})\frac{\partial w}{\partial\theta}.
+  \end{eqnarray}
+%2) 引入极坐标系中的两个正交单位向量% $\vec{j_r}$ 和 $\vec{j_{\theta}}$
+%{\footnotesize \begin{eqnarray*}
+%\begin{cases}
+%       \vec{j_r}=(\cos \theta,\sin \theta), \\
+%       \vec{j_{\theta}}=(-\sin \theta,\cos \theta)
+%\end{cases}
+%  \end{eqnarray*}}
+%此时, 极坐标中的任一向量均可由 $\vec{j_r}$ 和 $\vec{j_{\theta}}$ 线性表出.\vskip 0.2cm
+
+%接着, 考虑向量函数 $\vec{f}$ 在极坐标系下的散度表达式. 不妨设
+%$$\vec{f}=f_1\vec{i}+f_2\vec{j}$$%=f_r \vec{j_r}+f_{\theta} \vec{j_\theta}$$
+%进而可得
+%\begin{eqnarray}\label{ex-2.6}
+%f_r&=&\vec{f}\cdot \vec{j_r}=(f_1,f_2)\cdot(\cos \theta,\sin \theta)= f_1\cos \theta+f_2\sin\theta\\\label{ex-2.7}
+%f_{\theta}&=&\vec{f}\cdot \vec{j_{\theta}}=(f_1,f_2)\cdot(-\sin \theta,\cos \theta)= -f_1\sin \theta+f_2\cos\theta
+%\end{eqnarray}
+利用 \eqref{ex-2.3} (这里令 $w=f_1$) 和 \eqref{ex-2.4}  (这里令
+$w=f_2$) 可得
+\begin{eqnarray*}
+\nabla\cdot \vec{f}&=&\frac{\partial f_1}{\partial x}+\frac{\partial f_2}{\partial y}\\
+&=& \cos \theta\frac{\partial f_1}{\partial r}+(-\frac{\sin\theta}{r})\frac{\partial f_1}{\partial \theta} +  \sin \theta\frac{\partial f_2}{\partial r}+\frac{\cos\theta}{r}\frac{\partial f_2}{\partial \theta}
+\end{eqnarray*}
+特别的, 取 $\vec{f}=\nabla u=(\frac{\partial u}{\partial x},
+\frac{\partial u}{\partial y})$, 并利用 \eqref{ex-2.3} 和
+\eqref{ex-2.4} 有
+
+}}
+
+\frame{
+
+{\small
+{\footnotesize\begin{eqnarray*}
+\nabla \cdot \nabla u&=& \cos \theta\frac{\partial\frac{\partial u}{\partial x}}{\partial r}
++(-\frac{\sin\theta}{r})\frac{\partial\frac{\partial u}{\partial x}}{\partial \theta}
++\sin \theta\frac{\partial \frac{\partial u}{\partial y}}{\partial r}
++\frac{\cos\theta}{r}\frac{\partial \frac{\partial u}{\partial y}}{\partial \theta}\\
+&=& \cos \theta\frac{\partial(\cos\theta\frac{\partial u}{\partial r}+
+    (\frac{-\sin\theta}{r})\frac{\partial u}{\partial\theta})}{\partial r}
+    +(-\frac{\sin\theta}{r})\frac{\partial(\cos\theta\frac{\partial u}{\partial r}+
+    (\frac{-\sin\theta}{r})\frac{\partial u}{\partial\theta})}{\partial \theta} \\
+    &&+  \sin \theta\frac{\partial (\sin\theta\frac{\partial u}{\partial r}+
+    (\frac{\cos\theta}{r})\frac{\partial u}{\partial\theta})}{\partial r}
+    +\frac{\cos\theta}{r}\frac{\partial (\sin\theta\frac{\partial u}{\partial r}+
+    (\frac{\cos\theta}{r})\frac{\partial u}{\partial\theta})}{\partial \theta}\\
+&=&  \cos \theta\left(\cos \theta \frac{\partial^2 u}{\partial r^2}+ \frac{\sin \theta}{r^2}\frac{\partial u}{\partial\theta}+(\frac{-\sin\theta}{r})\frac{\partial^2 u}{\partial r\partial\theta}\right)\\
+&&+(-\frac{\sin\theta}{r})\left(-\sin \theta \frac{\partial u}{\partial r}+ \cos \theta \frac{\partial^2 u}{\partial r\partial\theta}+(-\frac{\cos \theta}{r})\frac{\partial u}{\partial\theta}+(-\frac{\sin\theta}{r})\frac{\partial^2 u}{\partial\theta^2} \right)\\
+&& +  \sin \theta\left(\sin\theta\frac{\partial^2 u}{\partial r^2}+ (-\frac{\cos \theta}{r^2})\frac{\partial u}{\partial\theta}+(\frac{\cos \theta}{r})\frac{\partial^2 u}{\partial r\partial\theta}\right)\\
+&&+ \frac{\cos\theta}{r}\left(\cos \theta \frac{\partial u}{\partial r}+\sin\theta\frac{\partial^2 u}{\partial r\partial\theta}+(-\frac{\sin\theta}{r})\frac{\partial u}{\partial\theta}+ (\frac{\cos \theta}{r})\frac{\partial^2 u}{\partial\theta^2} \right)\\
+&=& \frac{\partial^2 u}{\partial r^2}+\frac{1}{r}\frac{\partial u}{\partial r}+\frac{1}{r^2}\frac{\partial^2 u}{\partial \theta^2}=\frac{1}{r}\frac{\partial}{\partial r}(r\frac{\partial u}{\partial r})+\frac{1}{r^2}\frac{\partial^2 u}{\partial \theta^2}
+\end{eqnarray*}}
+至此就证得了 \eqref{ex-2.0-1} 的极坐标形式为 \eqref{ex-2.0-2}.\qed
+}}
+
+
+\end{document}

@@ -1,0 +1,935 @@
+\documentclass[14pt,hyperref={CJKbookmarks=true}]{beamer}
+\usepackage[space,noindent]{ctex}
+\usetheme{AnnArbor}
+\setbeamercolor{normal text}{bg=black!10}
+
+
+\useinnertheme{rounded}
+
+%设置被cover的内容不显示
+\setbeamercovered{transparent}
+\beamersetaveragebackground{black!10}
+%\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[triangle]
+\linespread{1.0}%行距
+
+\begin{document}
+\kaishu
+
+\newtheorem{THeorem}{定理}
+\newtheorem{DFfinition}{定义}
+\newtheorem{COrollary}{\hspace{0.6cm}推论}
+\newtheorem{LEmma}{引理}
+\newtheorem{EXample}{例}
+\newtheorem{proposition}{命题}
+\newtheorem{property}{性质}
+\newtheorem{remark}{注}
+%\newtheorem{Remark}{注意}
+\newtheorem{algorithm}{算法}
+
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\theremark}{\arabic{remark}}
+
+\title[]{第 六 章 习 题}
+
+
+%\author{舒适~~彭洁}
+\date{}
+
+
+%\pgfdeclareimage[height=1cm]{institution-logo}{figure/rwthaachenuniversity-whitegray-eps-converted-to.pdf}
+
+%\logo{\pgfuseimage{institution-logo}}
+
+\frame[plain]{\titlepage}
+
+
+\section{第五章习题}
+
+
+\frame{
+
+{\small {\color{red}习题 1}~给定如下(标量型)差分格式
+{\footnotesize\begin{eqnarray}\nonumber
+  &&\frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}\\\nonumber
+  &=& {a^2}\left[ {\theta \frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}}  + (1 - 2\theta )\frac{{u_{j + 1}^n - 2u_j^n +u_{j - 1}^n}}{{{h^2}}} \right.\\\label{ex5-1.1}
+  &&\left.{+ \theta \frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray}}
+试证：当 $\theta  = \frac{1}{4}$ 时，差分格式 \eqref{ex5-1.1} 与以下 (向量型) 的两层格式等价\vskip 0.2cm
+
+ {\footnotesize\begin{equation}\label{ex5-1.2} \left\{
+\begin{array}{l}
+   \frac{{v_j^{n + 1} - v_j^n}}{\tau } = a\frac{{w_{j + 1/2}^n - w_{j - 1/2}^n + w_{j + 1/2}^{n + 1} - w_{j - 1/2}^{n + 1}}}{{2h}}\\
+   \frac{{w_{j - 1/2}^{n + 1} - w_{j - 1/2}^n}}{\tau } = a\frac{{v_j^{n + 1} - v_{j - 1}^{n + 1} + v_j^n - v_{j - 1}^n}}{{2h}}
+ \end{array} \right.
+\end{equation}}
+其中
+{\footnotesize\begin{eqnarray}\label{ex5-1.3}
+ v_j^k = \frac{{u_j^k - u_j^{k - 1}}}{\tau },~~ w_{j + 1/2}^k = a\frac{{\left( {u_{j + 1}^k - u_j^k} \right) + \left( {u_{j + 1}^{k - 1} - u_j^{k - 1}} \right)}}{{2h}}
+\end{eqnarray}}
+}}
+
+\frame{
+
+{\small
+证明: 当 $\theta  = \frac{1}{4}$ 时，差分格式 \eqref{ex5-1.1} 就变为
+{\footnotesize\begin{eqnarray}\nonumber
+ \frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}&=& {a^2}\left[ {\frac{1}{4}\frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}} + \frac{1}{2}\frac{{u_{j + 1}^n - 2u_j^n + u_{j - 1}^n}}{{{h^2}}}\right.\\\label{ex5-1.4}
+ &&\left. {  + \frac{1}{4}\frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray}}
+首先验证 \eqref{ex5-1.2} 的第二个式子.
+\vskip 0.2cm
+将 \eqref{ex5-1.3} 代入 \eqref{ex5-1.2} 的第二个式子, 有
+{\footnotesize\begin{eqnarray}\nonumber
+   &&\frac{{a\frac{{\left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) + \left( {u_j^n - u_{j - 1}^n} \right)}}{{2h}}{\text{ }} - a\frac{{\left( {u_j^n - u_{j - 1}^n} \right) + \left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}}{{2h}}}}{\tau } \\\label{ex5-1.5}
+  &&  = a\frac{{\frac{{u_j^{n + 1} - u_j^n}}{\tau } - \frac{{u_{j - 1}^{n + 1} - u_{j - 1}^n}}{\tau } + \frac{{u_j^n - u_j^{n - 1}}}{\tau } - \frac{{u_{j - 1}^n - u_{j - 1}^{n - 1}}}{\tau }}}{{2h}}
+\end{eqnarray}}
+}}
+
+\frame{
+
+{\small
+即
+{\footnotesize\begin{eqnarray*}\nonumber
+  &&\frac{a}{{2h\tau }}\left[ {\left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) + \left( {u_j^n - u_{j - 1}^n} \right) - \left( {u_j^n - u_{j - 1}^n} \right) - \left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)} \right] \\
+  &&  = \frac{a}{{2h\tau }}\left[ {\left( {u_j^{n + 1} - u_j^n} \right) - \left( {u_{j - 1}^{n + 1} - u_{j - 1}^n} \right) + \left( {u_j^n - u_j^{n - 1}} \right) - \left( {u_{j - 1}^n - u_{j - 1}^{n - 1}} \right)} \right]
+\end{eqnarray*}}
+显然， 上式为恒等式.\vskip 0.2cm
+
+接着验证 \eqref{ex5-1.2} 的第一个式子.\vskip 0.2cm
+
+将 \eqref{ex5-1.3} 代入 \eqref{ex5-1.2} 的第一个式子, 有
+{\footnotesize\begin{eqnarray*}
+   \frac{{\frac{{u_j^{n + 1} - u_j^n}}{\tau } - \frac{{u_j^n - u_j^{n - 1}}}{\tau }}}{\tau } &=& a\frac{{a\frac{{\left( {u_{j + 1}^n - u_j^n} \right) + \left( {u_{j + 1}^{n - 1} - u_j^{n - 1}} \right)}}{{2h}} + a\frac{{\left( {u_{j + 1}^{n + 1} - u_j^{n + 1}} \right) + \left( {u_{j + 1}^n - u_j^n} \right)}}{{2h}}}}{{2h}}  \\
+  &&- a\frac{{a\frac{{\left( {u_j^n - u_{j - 1}^n} \right) + \left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}}{{2h}} + a\frac{{\left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) + \left( {u_j^n - u_{j - 1}^n} \right)}}{{2h}}}}{{2h}}
+  \end{eqnarray*}}
+}}
+
+
+\frame{
+
+{\small
+即
+{\footnotesize\begin{eqnarray*}
+&&\frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}\\
+ &&= \frac{{{a^2}}}{{4{h^2}}}\left[ {\left( {u_{j + 1}^n - u_j^n} \right) + \left( {u_{j + 1}^{n - 1} - u_j^{n - 1}} \right)}\right. \left.{+ \left( {u_{j + 1}^{n + 1} - u_j^{n + 1}} \right) + \left( {u_{j + 1}^n - u_j^n} \right)} \right] \\
+&&~~~~- \frac{{{a^2}}}{{4{h^2}}}\left[ {\left( {u_j^n - u_{j - 1}^n} \right) + \left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}\right. \left.{+ \left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) + \left( {u_j^n - u_{j - 1}^n} \right)} \right]  \\
+&& = {a^2}\left[ {\frac{1}{4}\frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}} \right.\left. { + \frac{1}{2}\frac{{u_{j + 1}^n - 2u_j^n + u_{j - 1}^n}}{{{h^2}}}}\right.\\
+&&~~~~\left.{ + \frac{1}{4}\frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray*}}
+显然上式即为 \eqref{ex5-1.4}.\vskip 0.2cm
+
+综上可知, 当 $\theta=\frac{1}{4}$ 时, 差分格式 \eqref{ex5-1.1} 与 \eqref{ex5-1.2} 等价.\qed
+
+
+}}
+
+
+%\frame{
+%
+%{\small
+%{\color{blue}注：}
+%差分格式 \eqref{ex5-1.1} 是如下波动方程
+%\begin{equation}\label{ex5-1.0}
+%\frac{\partial^2 u}{\partial t^2}=a^2 \frac{\partial^2 u}{\partial x^2}
+%\end{equation}
+%的差分逼近.\vskip 0.2cm
+%
+%为了将 \eqref{ex5-1.1} 中的三层格式化成 \eqref{ex5-1.2} 中的两层格式, 需要引进变量 $f=\frac{\partial u}{\partial t}$ 及 $g=a\frac{\partial u}{\partial x}$, 于是可将 \eqref{ex5-1.0} 化为
+%\begin{equation}\label{ex5-1.0-1}
+%\frac{\partial f}{\partial t}=a \frac{\partial g}{\partial x}, ~~\frac{\partial g}{\partial t}=a \frac{\partial f}{\partial x}.
+%\end{equation}
+%下面分别在 $(x_j,t_n)$ 点对 $\frac{\partial f}{\partial t}=a \frac{\partial g}{\partial x}$ 和在点 $(x_{j-1/2},t_{n})$ 处对 $\frac{\partial g}{\partial t}=a \frac{\partial f}{\partial x}$ 进行差分离散.\vskip 0.2cm
+%
+%其关键是对：
+%$$\frac{\partial f}{\partial t},~~\frac{\partial g}{\partial x},~~\frac{\partial g}{\partial t},~~\frac{\partial f}{\partial x}$$
+%这四项分别进行离散.
+%}}
+%
+%\frame{
+%
+%{\small
+%关于 $\frac{\partial f}{\partial t}$ 在点 $(x_j,t_{n})$ 处的离散{\color{blue}(用两次一阶中心差商)}.
+%{\footnotesize$$\frac{\partial f}{\partial t}\approx \frac{f_j^{n+1/2}-f_{j}^{n-1/2}}{\tau}\approx \frac{\frac{u_j^{n+1}-u_j^{n}}{\tau}-\frac{u_j^{n}-u_j^{n-1}}{\tau}}{\tau}=\frac{(u_j^{n+1}-u_j^{n})-(u_j^{n}-u_j^{n-1})}{\tau^2}$$}
+%令
+%{\footnotesize$$v_{j}^k:=f_{j}^{k-1/2}\approx \frac{u_j^{k}-u_j^{k-1}}{\tau}(k=n,n+1)$$}
+%则
+%{\footnotesize\begin{equation}\label{ex5-1.0-2}
+% \frac{\partial f}{\partial t}\approx \frac{v_{j}^{n+1}-v_{j}^{n}}{\tau}\approx \frac{(u_j^{n+1}-u_j^{n})-(u_j^{n}-u_j^{n-1})}{\tau^2}
+%\end{equation}}
+%}}
+%
+%\frame{
+%
+%{\small
+%关于 $\frac{\partial g}{\partial x}$ 在点 $(x_j,t_{n})$ 处的离散.
+%{\footnotesize
+%\begin{eqnarray*}
+%\frac{\partial g}{\partial x}
+%&\approx& \frac{\left[\frac{\partial g}{\partial x}\right]_{(x_{j}, t_{n-1/2})}+\left[\frac{\partial g}{\partial x}\right]_{(x_{j},t_{n+1/2})}}{2} \\
+%&\approx&  \frac{\frac{g_{j+1/2}^{n-1/2}-g_{j-1/2}^{n-1/2}}{h}+\frac{g_{j+1/2}^{n+1/2}-g_{j-1/2}^{n+1/2}}{h}}{2}\\
+%&\approx&  \frac{\frac{g_{j+1/2}^{n}+g_{j+1/2}^{n-1}}{2h}
+%-\frac{g_{j-1/2}^{n}+g_{j-1/2}^{n-1}}{2h}}{2}
+%+\frac{\frac{g_{j+1/2}^{n+1}+g_{j+1/2}^{n}}{2h}
+%-\frac{g_{j-1/2}^{n+1}+g_{j-1/2}^{n}}{2h}}{2}
+%\end{eqnarray*}}
+%
+%}}
+%
+%\frame{
+%
+%{\small
+%令{\footnotesize($l=j-1,j,~~k=n,n-1$)}
+%{\footnotesize$$w_{l+1/2}^k:=\frac{g_{l+1/2}^{k}+g_{l+1/2}^{k-1}}{2}=a\frac{\left[\frac{\partial u}{\partial x}\right]_{(x_{l+1/2},t_{k})}
+%+\left[\frac{\partial u}{\partial x}\right]_{(x_{l+1/2},t_{k-1})}}{2},$$} 并用一阶中心差商近似代替一阶微商有
+%{\footnotesize\begin{eqnarray}\nonumber
+%w_{l+1/2}^k&=&a\frac{\left[\frac{\partial u}{\partial x}\right]_{(x_{l+1/2},t_{k+1})}
+%+\left[\frac{\partial u}{\partial x}\right]_{(x_{l+1/2},t_{k})}}{2}\\\label{ex5-1.0-3}
+%&\approx& a\frac{(u_{l+1}^{k+1}-u_l^{k+1})+(u_{l+1}^{k}-u_l^{k})}{2h}
+%\end{eqnarray}}
+%此时
+%{\footnotesize\begin{equation}\label{ex5-1.0-4}
+%\frac{\partial g}{\partial x}\approx \frac{w_{j+1/2}^{n}-w_{j-1/2}^n+w_{j+1/2}^{n+1}-w_{j-1/2}^{n+1}}{2h}
+%\end{equation}}
+%}}
+%
+%\frame{
+%
+%{\small
+%关于 $\frac{\partial f}{\partial x}$ 在点 $(x_{j-1/2},t_{n})$ 处的离散.
+%{\footnotesize
+%\begin{eqnarray*}
+%\frac{\partial f}{\partial x}&\approx &\frac{\left[\frac{\partial f}{\partial x}\right]_{(x_{j-1/2},t_{n+1/2})}+\left[\frac{\partial f}{\partial x}\right]_{(x_{j-1/2},t_{n-1/2})}}{2}\\
+%&\approx& \frac{f_{j}^{n+1/2}-f_{j-1}^{n+1/2}}{2h}+\frac{f_{j}^{n-1/2}-f_{j-1}^{n-1/2}}{2h}\\
+%&=& \frac{v_j^{n+1}-v_{j-1}^{n+1}+v_{j}^n-v_{j-1}^n}{2h}
+%%&\approx& \frac{\frac{u_{j}^{n+1}-u_{j}^{n}}{\tau}-\frac{u_{j-1}^{n+1}-u_{j-1}^{n}}{\tau}+\frac{u_{j}^{n}-u_{j}^{n-1}}{\tau}-\frac{u_{j}^{n}-u_{j}^{n-1}}{\tau}}{2h}
+%\end{eqnarray*}}
+%关于 $\frac{\partial g}{\partial t}$ 在点 $(x_{j-1/2},t_{n})$ 处的离散.
+%{\footnotesize
+%\begin{eqnarray*}
+%\frac{\partial g}{\partial t}&\approx &\frac{g_{j-1/2}^{n+1/2}-g_{j-1/2}^{n-1/2}}{\tau}\\
+%&\approx &\frac{\frac{g_{j-1/2}^{n+1}+g_{j-1/2}^{n}}{2}-\frac{g_{j-1/2}^{n}+g_{j-1/2}^{n-1}}{2}}{\tau}\\
+%&=&\frac{w_{j-1/2}^{n+1}-w_{j-1/2}^{n}}{\tau}
+%\end{eqnarray*}}
+%
+%}}
+
+
+%\frame{
+%
+%{\small
+%{\color{blue}注：}
+%\begin{itemize}
+%  \item {\footnotesize$$v_j^k=\frac{u_j^{k}-u_j^{k-1}}{\tau}$$}
+%表示 $(x_j,t^{k-1/2})$ 处的一阶中心差商;
+%  \item {\footnotesize$$w_{j+1/2}^k=a\frac{(u_{j+1}^{k+1}-u_l^{k+1})+(u_{j+1}^{k}-u_l^{k})}{2h}$$}
+%  表示 $(x_{j+1/2},t_k)$ 和 $(x_{j+1/2},t_{k+1})$ 处一阶中心差商的平均值, 并用此近似代替 $(x_{j+1/2},t_{k+1/2})$ 处的一阶微商.
+% \end{itemize}
+%}}
+%
+%\frame{
+%
+%{\small
+%\begin{itemize}
+% \item {\footnotesize$$\frac{{v_j^{n + 1} - v_j^n}}{\tau } = a\frac{{w_{j + 1/2}^n - w_{j - 1/2}^n + w_{j + 1/2}^{n + 1} - w_{j - 1/2}^{n + 1}}}{{2h}}$$}
+%表示 $(x_{j},t_n)$ 处的中心差商;
+%  \item {\footnotesize$$\frac{{w_{j - 1/2}^{n + 1} - w_{j - 1/2}^n}}{\tau } = a\frac{{v_j^{n + 1} - v_{j - 1}^{n + 1} + v_j^n - v_{j - 1}^n}}{{2h}}$$}
+%表示 $(x_{j-1/2},t_n)$ 处的中心差商.
+%\end{itemize}
+%
+%}}
+
+
+
+\frame{
+
+{\small
+{\color{red}习题 2}~证明两层差分格式
+\begin{equation}\label{ex5-2.1}
+\left\{ \begin{array}{l}
+   {\frac{{v_j^{n + 1} - v_j^n}}{\tau } = a\frac{{w_{j + \frac{1}{2}}^n - w_{j -
+    \frac{1}{2}}^n + w_{j + \frac{1}{2}}^{n + 1} - w_{j - \frac{1}{2}}^{n + 1}}}{2h}}  \\
+   {\frac{{w_{j - \frac{1}{2}}^{n + 1} - w_{j - \frac{1}{2}}^n}}{\tau } = a\frac{{v_j^{n + 1} - v_{j - 1}^{n + 1} + v_j^n - v_{j - 1}^n}}{2h}}
+ \end{array}\right.
+\end{equation}
+绝对稳定.
+\vskip 0.2cm
+证明: \eqref{ex5-2.1} 等价于($r=a\tau/h$ 为网比)
+{\footnotesize\begin{equation}\label{5.1.23-1}
+\left\{ \begin{array}{l}
+   2{v_j^{n + 1} - 2v_j^n} = r ({w_{j + \frac{1}{2}}^n - w_{j -
+    \frac{1}{2}}^n + w_{j + \frac{1}{2}}^{n + 1} - w_{j - \frac{1}{2}}^{n + 1}})  \\
+   2{w_{j - \frac{1}{2}}^{n + 1} - 2w_{j - \frac{1}{2}}^n} = r ({v_j^{n + 1} - v_{j - 1}^{n + 1} + v_j^n - v_{j - 1}^n})
+ \end{array}\right.
+\end{equation}}
+下面利用 Fourier 方法分析差分格式 \eqref{ex5-2.1} 的稳定性.
+}}
+
+\frame{
+
+{\small
+以通项
+$$v_{j+m}^{n+q}=V_1^{n+q}e^{i\alpha x_{j+m}},~~w_{j+m}^{n+q}=V_2^{n+q}e^{i\alpha x_{j+m}},~~\alpha=2p\pi $$
+代入 \eqref{5.1.23-1},
+{\footnotesize\begin{equation*}%\label{5.1.23-1}
+\left\{ \begin{array}{l}
+   2V_1^{n+1}e^{i\alpha x_j} - 2V_1^ne^{i\alpha x_j}= r [V_2^ne^{i\alpha x_{j + \frac{1}{2}}} - V_2^ne^{i\alpha x_{j -
+    \frac{1}{2}}} \\
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ V_2^{n+1}e^{i\alpha x_{j + \frac{1}{2}}}- V_2^{n + 1}e^{i\alpha x_{j - \frac{1}{2}}}]\\
+    2V_2^{n + 1}e^{i\alpha x_{j - \frac{1}{2}}} -  2V_2^{n}e^{i\alpha x_{j - \frac{1}{2}}}= r [V_1^{n+1}e^{i\alpha x_j}- V_1^{n+1}e^{i\alpha x_{j-1}}\\
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ V_1^ne^{i\alpha x_j}- V_1^ne^{i\alpha x_{j-1}}]
+ \end{array}\right.
+\end{equation*}}
+}}
+
+\frame{
+
+{\small
+消去共同因子 $e^{i\alpha x_j}$ 和 $e^{i\alpha x_{j-\frac{1}{2}}}$, 得
+{\footnotesize\begin{equation*}%\label{5.1.23-1}
+\left\{ \begin{array}{l}
+   2V_1^{n+1} - 2V_1^n= r [V_2^ne^{i\alpha h/2} - V_2^ne^{i\alpha (-h/2)} \\
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ V_2^{n+1}e^{i\alpha h/2}- V_2^{n + 1}e^{i\alpha (-h/2)}]\\
+    2V_2^{n + 1}-  2V_2^{n}= r [V_1^{n+1}e^{i\alpha h/2}- V_1^{n+1}e^{i\alpha (-h/2)}\\
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ V_1^ne^{i\alpha h/2}- V_1^ne^{i\alpha (-h/2)}]
+ \end{array}\right.
+\end{equation*}}
+$\Leftrightarrow$
+{\footnotesize\begin{equation*}%\label{5.1.23-1}
+\left\{ \begin{array}{l}
+   2V_1^{n+1} - 2V_1^n= rV_2^n[e^{i\alpha h/2} - e^{i\alpha (-h/2)}] \\
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ r V_2^{n+1}[e^{i\alpha h/2}- e^{i\alpha (-h/2)}]\\
+    2V_2^{n + 1} -  2V_2^{n}= rV_1^{n+1}[e^{i\alpha h/2} - e^{i\alpha (-h/2)}]\\
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ rV_1^n[e^{i\alpha h/2}- e^{i\alpha (-h/2)}]
+ \end{array}\right.
+\end{equation*}}
+$\Leftrightarrow$
+{\footnotesize\begin{equation*}%\label{5.1.23-1}
+\left\{ \begin{array}{l}
+   2V_1^{n+1}-i2r\sin(\frac{\alpha h}{2}) V_2^{n+1} = 2V_1^n+i2r\sin(\frac{\alpha h}{2})V_2^n\\
+   -i2r\sin(\frac{\alpha h}{2})V_1^{n+1}+2V_2^{n+1} = i2r\sin(\frac{\alpha h}{2}) V_1^n+2V_2^n
+ \end{array}\right.
+\end{equation*}}
+}}
+
+\frame{
+
+{\small
+
+其矩阵形式为 (记 $c=2r\sin(\frac{\alpha h}{2})$)
+{\footnotesize$$\left(\begin{array}{cc}2& -ic\\ -ic&2\end{array}\right)\left(\begin{array}{c}V_1^{n+1}\\V_2^{n+1}\end{array}\right)=
+\left(\begin{array}{cc}2& ic\\ ic&2\end{array}\right)
+\left(\begin{array}{c}V_1^{n}\\V_2^{n}\end{array}\right)
+$$}
+$\Leftrightarrow$
+{\footnotesize$$\left(\begin{array}{c}V_1^{n+1}\\V_2^{n+1}\end{array}\right)=
+\left(\begin{array}{cc}2& -ic\\ -ic&2\end{array}\right)^{-1}
+\left(\begin{array}{cc}2& ic\\ ic&2\end{array}\right)
+\left(\begin{array}{c}V_1^{n}\\V_2^{n}\end{array}\right)
+$$}
+$\Leftrightarrow$
+{\footnotesize$$\left(\begin{array}{c}V_1^{n+1}\\V_2^{n+1}\end{array}\right)= \frac{1}{4+c^2}
+\left(\begin{array}{cc}2& ic\\ ic&2\end{array}\right)
+\left(\begin{array}{cc}2& ic\\ ic&2\end{array}\right)
+\left(\begin{array}{c}V_1^{n}\\V_2^{n}\end{array}\right)
+$$}
+$\Leftrightarrow$
+{\footnotesize$$\left(\begin{array}{c}V_1^{n+1}\\V_2^{n+1}\end{array}\right)=
+\left(\begin{array}{cc}\frac{4-c^2}{4+c^2}&\frac{i4c}{4+c^2} \\ \frac{i4c}{4+c^2}&\frac{4-c^2}{4+c^2}\end{array}\right)
+\left(\begin{array}{c}V_1^{n}\\V_2^{n}\end{array}\right)
+$$}
+则增长矩阵
+$$G(\alpha h)=\left(\begin{array}{cc}\frac{4-c^2}{4+c^2}&\frac{i4c}{4+c^2} \\ \frac{i4c}{4+c^2}&\frac{4-c^2}{4+c^2}\end{array}\right)$$
+}}
+
+\frame{
+
+{\small
+容易验证
+{\footnotesize$${G^H}G = \left( \begin{array}{cc}
+   {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}} & {\frac{{ - ic}}{{1 + {c^2}/4}}}  \\
+   {\frac{{ - ic}}{{1 + {c^2}/4}}} & {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}}
+ \end{array} \right)\left( \begin{array}{cc}
+   {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}} & {\frac{{ic}}{{1 + {c^2}/4}}}  \\
+   {\frac{{ic}}{{1 + {c^2}/4}}} & {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}}
+\end{array} \right) = \left( \begin{array}{cc}
+   1 & 0  \\
+   0 & 1  \end{array} \right) = \rm I$$
+   $$G{G^H} = \left( \begin{array}{cc}
+   {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}} & {\frac{{ic}}{{1 + {c^2}/4}}}  \\
+   {\frac{{ic}}{{1 + {c^2}/4}}} & {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}}
+\end{array} \right)\left( \begin{array}{cc}
+   {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}} & {\frac{{ - ic}}{{1 + {c^2}/4}}}  \\
+   {\frac{{ - ic}}{{1 + {c^2}/4}}} & {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}}
+ \end{array} \right) = \left( \begin{array}{cc}
+   1 & 0  \\
+   0 & 1  \end{array} \right) = \rm I$$}
+
+所以 $G(\alpha h)$ 是酉矩阵 (一种正规矩阵), 那么为了证明格式按初值稳定, 只需验证 $G(\alpha h)$ 的谱半径满足 Von Neumann 条件即可.\vskip 0.2cm
+
+下面给出估计增长矩阵 $G(\alpha h)$ 的谱半径的两种不同方法.
+}}
+
+\frame{
+
+{\small
+{\color{blue}方法一：}~注意到此时 $\|G(\alpha h)\|_2=\rho(G(\alpha h))$, 又
+$$\|G(\alpha h)\|_2=\sqrt{\rho(G(\alpha h)G^H(\alpha h))}=\sqrt{\rho(\rm I)}=1,$$
+故
+$$\rho(G(\alpha h))=1,$$
+从而该差分方程满足 Von Neumann 条件, 故 \eqref{ex5-2.1} 绝对稳定.\qed
+}}
+
+\frame{
+
+{\small
+{\color{blue}方法二：}~增长矩阵 $G(\alpha h)$ 对应的特征方程为
+$${(\lambda  - \frac{{1 - {c^2}/4}}{{1 + {c^2}/4}})^2} + {(\frac{c}{{1 + {c^2}/4}})^2} = 0$$
+$ \Rightarrow $
+$$\lambda  = \frac{{1 - {c^2}/4}}{{1 + {c^2}/4}} \pm \frac{{ic}}{{1 + {c^2}/4}}$$
+$ \Rightarrow $
+\begin{equation}\label{ex5-2.3}
+\left| \lambda  \right| = \sqrt {{{\left( {\frac{{1 - {c^2}/4}}{{1 + {c^2}/4}}} \right)}^2} + {{\left( {\frac{c}{{1 + {c^2}/4}}} \right)}^2}}  = \sqrt 1  = 1
+\end{equation}
+由 \eqref{ex5-2.3} 知, $\rho (G) = 1$，满足 Von Neumann 条件，所以差分格式 \eqref{ex5-2.1} 绝对稳定.\qed
+}}
+
+\frame{
+
+{\small
+{\color{red}习题 3}~直接用 Fourier 方法证明差分格式
+{\footnotesize\begin{eqnarray}\nonumber
+  &&\frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}\\\nonumber
+  &=& {a^2}\left[ {\theta \frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}}  + (1 - 2\theta )\frac{{u_{j + 1}^n - 2u_j^n +u_{j - 1}^n}}{{{h^2}}} \right.\\\label{ex5-3.1}
+  &&\left.{+ \theta \frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray}}
+
+ (1) 当 $\theta  \geqslant \frac{1}{4}$ 时绝对稳定;
+\vskip 0.2cm
+ (2) 当 $0 \leqslant \theta  < \frac{1}{4}$ 时稳定的充要条件是
+ {\footnotesize$$r = \frac{{a\tau }}{h} < \frac{1}{{\sqrt {1 - 4\theta } }}.$$}
+
+}}
+
+\frame{
+
+{\small
+证明：
+令 $u_j^n = {v^n}{e^{i\alpha {x_j}}}$ 代入 \eqref{ex5-3.1}, 有
+{\footnotesize\begin{eqnarray*}
+   &&\frac{{({v^{n + 1}} - 2{v^n} + {v^{n - 1}}){e^{i\alpha {x_j}}}}}{{{\tau ^2}}} \\
+   &&= {a^2}[\theta \frac{{{v^{n + 1}}({e^{i\alpha {x_{j + 1}}}} - 2{e^{i\alpha {x_j}}} + {e^{i\alpha {x_{j - 1}}}})}}{{{h^2}}} \\
+  &&~~+ (1 - 2\theta )\frac{{{v^n}({e^{i\alpha {x_{j + 1}}}} - 2{e^{i\alpha {x_j}}} + {e^{i\alpha {x_{j - 1}}}})}}{{{h^2}}} + \theta \frac{{{v^{n - 1}}({e^{i\alpha {x_{j + 1}}}} - 2{e^{i\alpha {x_j}}} + {e^{i\alpha {x_{j - 1}}}})}}{{{h^2}}}]
+\end{eqnarray*}}
+约去公共因子得
+{\footnotesize$${v^2} - 2v + 1 = \frac{{{a^2}{\tau ^2}}}{{{h^2}}}[2{v^2}\theta (\cos \alpha h - 1) + 2v(1 - 2\theta )(\cos \alpha h - 1) + 2\theta (\cos \alpha h - 1)]$$}
+$\Rightarrow$ (令 ${r^2} = \frac{{{a^2}{\tau ^2}}}{{{h^2}}}$)
+{\footnotesize$${v^2} - 2v + 1 =  - {r^2}[4\theta {\sin ^2}\frac{{\alpha h}}{2}{v^2} + 4(1 - 2\theta ){\sin ^2}\frac{{\alpha h}}{2}v + 4\theta {\sin ^2}\frac{{\alpha h}}{2}]$$}
+}}
+
+\frame{
+
+{\small
+$\Rightarrow$
+{\footnotesize$$(1 + 4\theta {r^2}{\sin ^2}\frac{{\alpha h}}{2}){v^2} - (2 - 4(1 - 2\theta ){r^2}{\sin ^2}\frac{{\alpha h}}{2})v + (1 + 4\theta {\sin ^2}\frac{{\alpha h}}{2}) = 0$$}
+$\Rightarrow$ 特征方程为
+{\footnotesize$${\lambda ^2} - \frac{{2 - 4(1 - 2\theta ){r^2}{{\sin }^2}\frac{{\alpha h}}{2}}}{{1 + 4\theta {r^2}{{\sin }^2}\frac{{\alpha h}}{2}}}\lambda  + 1 = 0$$}
+格式稳定的必要条件是 $\left| \lambda  \right| \leqslant 1$,
+
+$ \Leftrightarrow $
+{\footnotesize$$\left| {\frac{{2 - 4(1 - 2\theta ){r^2}{{\sin }^2}\frac{{\alpha h}}{2}}}{{1 + 4\theta {r^2}{{\sin }^2}\frac{{\alpha h}}{2}}}} \right| \leqslant 2$$}
+$ \Leftrightarrow $
+{\footnotesize$$ - 2\theta {r^2}{\sin ^2}\frac{{\alpha h}}{2} \leqslant (1 - 2\theta ){r^2}{\sin ^2}\frac{{\alpha h}}{2} \leqslant 1 + 2\theta {r^2}{\sin ^2}\frac{{\alpha h}}{2}$$}
+}}
+
+\frame{
+
+{\small
+$ \Leftrightarrow $ ($\because 1 - 2\theta  >  - 2\theta$, 故左边不等式恒成立.)
+{\footnotesize$$(1 - 2\theta ){r^2}{\sin ^2}\frac{{\alpha h}}{2} \leqslant 1 + 2\theta {r^2}{\sin ^2}\frac{{\alpha h}}{2}$$}
+$ \Leftrightarrow $
+{\footnotesize$$(1 - 4\theta ){r^2}{\sin ^2}\frac{{\alpha h}}{2} \leqslant 1$$}
+${\sin ^2}\frac{{\alpha h}}{2} = 0$ 时，显然成立。下面分两种情形讨论 ${\sin ^2}\frac{{\alpha h}}{2} \ne 0$ 时上述不等式成立的条件.\vskip 0.2cm
+
+(1) 当 $\theta  \geqslant \frac{1}{4}$,
+{\footnotesize$$(1 - 4\theta ){r^2}{\sin ^2}\frac{{\alpha h}}{2} \leqslant 0 < 1,$$}
+故格式绝对稳定.\vskip 0.2cm
+}}
+
+\frame{
+
+{\small
+
+
+(2) 当 $0 \leqslant \theta  < \frac{1}{4}$, 格式稳定必要条件为
+{\footnotesize$$(1 - 4\theta ){r^2} \leqslant 1 \Rightarrow r \leqslant \sqrt {\frac{1}{{1 - 4\theta }}} $$}
+当 $r = \sqrt {\frac{1}{{1 - 4\theta }}} $ 时，若 ${\sin ^2}\frac{{\alpha h}}{2} = 1$ 成立，则等号成立，故 $r = \sqrt {\frac{1}{{1 - 4\theta }}} $ 不稳定，故稳定的充要条件是
+{\footnotesize$$r = \frac{{a\tau }}{h} < \frac{1}{{\sqrt {1 - 4\theta } }}.$$}\qed
+
+
+}}
+
+
+
+\frame{
+
+{\small
+{\color{red}习题 4}~ 试求下列混合问题的解
+\begin{equation}\label{ex5-4.1}
+\left\{ \begin{array}{l}
+  \frac{{\partial u}}{{\partial t}} + \frac{{\partial u}}{{\partial x}} = 0,{\text{     }}0 < x < \infty ,~~t > 0\\
+  u(x,0) = \left| {x - 1} \right|,~~u(0,t) = 1
+ \end{array}  \right.
+\end{equation}
+解: 方程 \eqref{ex5-4.1} 的特征方向为
+$$\tau  = (1,1)$$
+即特征线的斜率
+$$\frac{{dt}}{{dx}} = 1$$
+所以有
+$$\frac{{\partial u}}{{\partial \tau }} = 0$$
+即在特征线上, $u$ 是一个常数 (如下图 (A) 所示).
+}}
+
+
+\frame{
+
+{\small
+\begin{center}
+  \includegraphics[height=20mm]{figure/ex5-4-1.jpg}
+\end{center}
+下面给出 $u(x,t)$ 的函数表达式, 为此, 将 $(x,t)$ 所属的求解区域第一象限分为如下三个子区域 (见上图 (B))：
+
+蓝色区域：
+$${\Omega _1} = \{ (x,t):t > 0,0 < x \leqslant t\} $$
+红色区域：
+$${\Omega _2} = \{ (x,t):t > 0,t < x \leqslant t + 1\} $$
+绿色区域：
+$${\Omega _3} = \{ (x,t):t > 0,x > t + 1\} $$
+}}
+
+\frame{
+
+{\small
+这时,
+\begin{itemize}
+  \item 当 $({x_0},{t_0}) \in {\Omega _1}$ 时, 过该点且斜率为 1 的特征直线：
+{\footnotesize$$t = {t_0} + (x - {x_0})$$}
+必与 $t$ 轴相交, 而 $u(x,t)$ 在该特征线上的函数值都相等，由边值条件 $u(0,t) = 1$ 可得
+{\footnotesize$$u({x_0},{t_0}) = 1$$}
+由 $({x_0},{t_0})$ 的任意性知
+{\footnotesize$$u(x,t) = 1,~~(x,t) \in {\Omega _1}$$}
+  \item 当 $({x_0},{t_0}) \in {\Omega _2}$ 时, 过该点的特征线必与 $x$ 轴相交, 交点为 $({x_0} - {t_0},0)$, 其中 ${x_0} - {t_0} \in (0,1]$, 因此, 有
+{\footnotesize$$u({x_0},{t_0}) = u({x_0} - {t_0},0) = \left| {{x_0} - {t_0} - 1} \right| = 1 - {x_0} + {t_0}$$}
+由 $({x_0},{t_0})$ 的任意性知
+{\footnotesize$$u(x,t) = 1 - x + t,~~(x,t) \in {\Omega _2}$$}
+\end{itemize}
+}}
+
+\frame{
+
+{\small
+\begin{itemize}
+  \item 当 $({x_0},{t_0}) \in {\Omega _3}$ 时, 过该点的特征线与 $x$ 轴的交点为 $({x_0} - {t_0},0)$, 其中 ${x_0} - {t_0} \in (1, + \infty )$, 因此, 有
+{\footnotesize$$u({x_0},{t_0}) = u({x_0} - {t_0},0) = \left| {{x_0} - {t_0} - 1} \right| = {x_0} - {t_0} - 1$$}
+由 $({x_0},{t_0})$ 的任意性知
+{\footnotesize$$u(x,t) = x - t - 1,~~(x,t) \in {\Omega _3}$$}
+\end{itemize}
+综上可得, $u(x,t)$ 的函数表达式为
+$$u\left( {x,t} \right) = \left\{ \begin{array}{cc}
+   1, & x \leqslant t,~t \geqslant 0\\
+   1 - x + t,  & t < x \leqslant t + 1,~t \geqslant 0\\
+   x - t - 1,  &x > t + 1,~t \geqslant 0
+ \end{array}\right.$$
+}}
+
+\frame{
+
+{\small
+
+解函数的图像为 (3D 图象)
+\begin{center}
+  \includegraphics[height=30mm]{figure/ex5-4-2.jpg}
+\end{center}\qed
+}}
+
+
+\frame{
+
+{\small
+{\color{red}习题 5}~分析下列两种差分格式的稳定性.
+
+(1)
+\begin{equation}\label{ex5-5.1}
+\frac{{u_j^{n + 1} - u_j^n}}{\tau } + a\frac{{u_{j + 1}^n - u_j^n}}{h} = 0
+\end{equation}
+(2)
+\begin{equation}\label{ex5-5.2}
+\frac{{u_j^{n + 1} - u_j^n}}{\tau } + a\frac{{u_{j + 1}^n - u_{j - 1}^n}}{{2h}} = 0
+\end{equation}
+解: (1) 记 $r = a\frac{\tau }{h}$, 则 \eqref{ex5-5.1} 可以等价地写为
+\begin{equation}\label{ex5-5.3}
+u_j^{n + 1} = (1 + r)u_j^n - ru_{j + 1}^n
+\end{equation}
+令
+\begin{equation}\label{ex5-5.4}
+  u_j^n = {v_n}{e^{i\alpha {x_j}}},~~ \alpha  = 2p\pi
+\end{equation}
+}}
+
+
+\frame{
+
+{\small
+将 \eqref{ex5-5.4} 代入 \eqref{ex5-5.3}, 得：
+$${v_{n + 1}}{e^{i\alpha {x_j}}} = (1 + r){v_n}{e^{i\alpha {x_j}}} - r{v_n}{e^{i\alpha ({x_j} + h)}}$$
+两边约去因子 ${e^{i\alpha {x_j}}}$, 可得
+\begin{equation}\label{ex5-5.5}
+  {v_{n + 1}} = (1 + r){v_n} - r{v_n}{e^{i\alpha h}}= (1 + r - r{e^{i\alpha h}}){v_n}
+\end{equation}
+由 \eqref{ex5-5.5} 知, 差分格式 \eqref{ex5-5.1} 的增长因子为
+$$G(ph,\tau ) = 1 + r - r{e^{i\alpha h}} = (1 + r - r\cos \alpha h) - i \cdot r\sin \alpha h$$
+差分格式 \eqref{ex5-5.1} 稳定的充要条件是增长因子满足 Von Neumann 条件：
+$$\left| {G(ph,\tau )} \right| \leqslant 1 + M\tau $$
+$ \Leftrightarrow $
+$$\left| {(1 + r - r\cos \alpha h) - i \cdot r\sin \alpha h} \right| \leqslant 1$$
+
+
+}}
+
+\frame{
+
+{\small
+$ \Leftrightarrow $
+$${(1 + r - r\cos \alpha h)^2} + {r^2}{\sin ^2}\alpha h \leqslant 1$$
+$ \Leftrightarrow $
+$$r \cdot (r + 1) \cdot (1 - \cos \tau h) \leqslant 0$$
+$ \Leftrightarrow $
+$$r \cdot (r + 1) \leqslant 0$$
+$ \Leftrightarrow $
+$${r^2} \leqslant  - r$$
+$ \Leftrightarrow $
+$${(a\frac{\tau }{h})^2} \leqslant  - a\frac{\tau }{h}$$
+$ \Leftrightarrow $
+\begin{equation}\label{ex5-5.6}
+a \leqslant 0~~\mbox{且}~~\left| {a\frac{\tau }{h}} \right| \leqslant 1
+\end{equation}
+即 \eqref{ex5-5.6} 是差分格式 \eqref{ex5-5.1} 稳定的充要条件.
+}}
+
+\frame{
+
+{\small
+(2) 记 $r = a\frac{\tau }{h}$, 则 \eqref{ex5-5.2} 可以等价地写为
+\begin{equation}\label{ex5-5.7}
+u_j^{n + 1} = u_j^n - \frac{r}{2}(u_{j + 1}^n - u_{j - 1}^n)
+\end{equation}
+令
+\begin{equation}\label{ex5-5.8}
+  u_j^n = {v_n}{e^{i\alpha {x_j}}},~~\alpha  = 2p\pi
+\end{equation}
+将 \eqref{ex5-5.8} 代入 \eqref{ex5-5.7}, 得：
+$${v_{n + 1}}{e^{i\alpha {x_j}}} = {v_n}{e^{i\alpha {x_j}}} - \frac{r}{2}({v_n}{e^{i\alpha ({x_j} + h)}} - {v_n}{e^{i\alpha ({x_j} - h)}})$$
+两边约去因子 ${e^{i\alpha {x_j}}}$, 可得
+\begin{eqnarray}\nonumber
+  {v_{n + 1}} &=& {v_n} - \frac{r}{2}({v_n}{e^{i\alpha h}} - {v_n}{e^{ - i\alpha h}})  \\\nonumber
+  &=& \left[ {1 - \frac{r}{2}({e^{i\alpha h}} - {e^{ - i\alpha h}})} \right]{v_n}  \\\label{ex5-5.9}
+  &=& (1 - i \cdot r\sin \alpha h) \cdot {v_n}
+\end{eqnarray}
+}}
+
+\frame{
+
+{\small
+由 \eqref{ex5-5.9} 知, 差分格式 \eqref{ex5-5.2} 的增长因子为
+$$G(ph,\tau ) = 1 - i \cdot r\sin \alpha h$$
+差分格式 \eqref{ex5-5.2} 稳定的充要条件是增长因子满足 Von Neumann 条件：
+$$\left| {G(ph,\tau )} \right| \leqslant 1 + M\tau $$
+$ \Leftrightarrow $
+$$\left| {1 - i \cdot r\sin \alpha h} \right| \leqslant 1$$
+$ \Leftrightarrow $
+$$1 + {r^2}{\sin ^2}\alpha h \leqslant 1$$
+$ \Leftrightarrow $
+\begin{equation}\label{ex5-5.10}
+{r^2}{\sin ^2}\alpha h \leqslant 0
+\end{equation}
+显然, \eqref{ex5-5.10} 对任意的 $r \ne 0$ 均不成立, 因此, 差分格式 \eqref{ex5-5.2} 对任意的 $r \ne 0$ 均不稳定.\qed
+}}
+
+
+\frame{
+
+{\small
+{\color{red}习题 6}~证明逼近 $\frac{{\partial u}}{{\partial t}} + a\frac{{\partial u}}{{\partial x}} = 0$ 的差分格式
+\begin{eqnarray}\label{ex5-6.1.1}
+  &&\frac{{u_j^{n + 1} - u_j^n}}{\tau } + a\frac{{u_j^{n + 1} - u_{j - 1}^{n + 1}}}{h} = 0,~a \geqslant 0\\\label{ex5-6.1.2}
+  &&\frac{{u_j^{n + 1} - u_j^n}}{\tau } + a\frac{{u_{j + 1}^{n + 1} - u_j^{n + 1}}}{h} = 0,~a < 0
+\end{eqnarray}
+绝对稳定.
+\vskip 0.2cm
+解：记 $r = \frac{\tau }{h}$, 则 \eqref{ex5-6.1.1} 可以等价地写为
+\begin{equation}\label{ex5-6.2}
+u_j^{n + 1} = u_j^n - aru_j^{n + 1} + aru_{j - 1}^{n + 1}
+\end{equation}
+令
+\begin{equation}\label{ex5-6.3}
+  u_j^n = {v_n}{e^{i\alpha {x_j}}},~~\alpha  = 2p\pi
+\end{equation}
+将 \eqref{ex5-6.3} 代入 \eqref{ex5-6.2}, 得：
+$${v_{n + 1}}{e^{i\alpha {x_j}}} = {v_n}{e^{i\alpha {x_j}}} - ar{v_{n + 1}}{e^{i\alpha {x_j}}} + ar{v_{n + 1}}{e^{i\alpha ({x_j} - h)}}$$
+
+}}
+
+\frame{
+
+{\small
+两边约去因子 ${e^{i\alpha {x_j}}}$, 可得
+\begin{equation}\label{ex5-6.4}
+(1 + ar - ar{e^{ - i\alpha h}}){v_{n + 1}} = {v_n}
+\end{equation}
+由 \eqref{ex5-6.4} 知, 差分格式 \eqref{ex5-6.1.1} 的增长因子为
+$$G(ph,\tau ) = {(1 + ar - ar{e^{ - i\alpha h}})^{ - 1}}$$
+所以差分格式 \eqref{ex5-6.1.1} 稳定的充要条件是增长因子满足 Von Neumann 条件：
+$$\left| {G(ph,\tau )} \right| \leqslant 1 + M\tau $$
+$ \Leftrightarrow $
+$$\left| {\frac{1}{{1 + ar - ar\cos \alpha h + i \cdot r\sin \alpha h}}} \right| \leqslant 1$$
+显然当 $a \geqslant 0$ 时, 上式恒成立, 所以格式 \eqref{ex5-6.1.1} 是绝对稳定的.
+}}
+
+\frame{
+
+{\small
+同理知, 差分格式 \eqref{ex5-6.1.2} 的增长因子为
+$$G(ph,\tau ) = {(1 - ar + ar{e^{i\alpha h}})^{ - 1}}$$
+所以差分格式 \eqref{ex5-6.1.2} 稳定的充要条件是增长因子满足 Von Neumann 条件：
+$$\left| {G(ph,\tau )} \right| \leqslant 1 + M\tau $$
+$ \Leftrightarrow $
+$$\left| {\frac{1}{{1 - ar + ar\cos \alpha h + i \cdot ar\sin \alpha h}}} \right| \leqslant 1$$
+显然当 $a < 0$ 时, 上式恒成立, 所以格式 \eqref{ex5-6.1.2} 是绝对稳定的.\qed
+}}
+
+
+\frame{
+
+{\small
+{\color{red}习题 7}~证明逼近 $\frac{{\partial u}}{{\partial t}} + a\frac{{\partial u}}{{\partial x}} = 0$ 的隐格式
+\begin{equation}\label{ex5-7.1}
+\frac{{u_j^{n + 1} - u_j^n}}{\tau } + a\frac{{u_{j + 1}^{n + 1} - u_{j - 1}^{n + 1}}}{{2h}} = 0
+\end{equation}
+绝对稳定.\vskip 0.2cm
+
+解：记 $r = a\frac{\tau }{h}$, 则 \eqref{ex5-7.1} 可以等价地写为
+\begin{equation}\label{ex5-7.2}
+2u_j^{n + 1} = u_j^n - ru_{j + 1}^{n + 1} + ru_{j - 1}^{n + 1}
+\end{equation}
+令
+\begin{equation}\label{ex5-7.3}
+  u_j^n = {v_n}{e^{i\alpha {x_j}}},~~\alpha  = 2p\pi
+\end{equation}
+}}
+
+\frame{
+
+{\small
+将 \eqref{ex5-7.3} 代入 \eqref{ex5-7.3}, 得：
+$$2{v_{n + 1}}{e^{i\alpha {x_j}}} = {v_n}{e^{i\alpha {x_j}}} - r{v_{n + 1}}{e^{i\alpha ({x_j} + h)}} + r{v_{n + 1}}{e^{i\alpha ({x_j} - h)}}$$
+两边约去因子 ${e^{i\alpha {x_j}}}$, 可得
+\begin{equation}\label{ex5-7.4}
+(2 + r{e^{i\alpha h}} - r{e^{ - i\alpha h}}){v_{n + 1}} = {v_n}
+\end{equation}
+由 \eqref{ex5-7.4} 知, 差分格式 \eqref{ex5-7.1} 的增长因子为
+$$G(ph,\tau ) = {(2 - r{e^{i\alpha h}} + r{e^{ - i\alpha h}})^{ - 1}} = {(2 - i2r\sin \alpha h)^{ - 1}}$$
+所以差分格式 \eqref{ex5-7.1} 稳定的充要条件是增长因子满足 Von Neumann 条件：
+$$\left| {G(ph,\tau )} \right| \leqslant 1 + M\tau $$
+$ \Leftrightarrow $
+$$\left| {\frac{1}{{2 - i2r\sin \alpha h}}} \right| \leqslant 1$$
+上式显然恒成立, 所以格式 \eqref{ex5-7.1} 是绝对稳定的.\qed
+}}
+
+\frame{
+
+{\small
+{\color{red}习题 8}~逼近 $\frac{{\partial u}}{{\partial t}} + a\frac{{\partial u}}{{\partial x}} = 0$ 的蛙跳 (Leap—frog) 格式是
+\begin{equation}\label{ex5-8.1}
+\frac{{u_j^{n + 1} - u_j^{n - 1}}}{{2\tau }} + a\frac{{u_{j + 1}^n - u_{j - 1}^n}}{{2h}} = 0
+\end{equation}
+证明其稳定条件是 $\left| {a\tau /h} \right| \leqslant 1$.\vskip 0.2cm
+
+解：记 $r = a\frac{\tau }{h}$, 将 \eqref{ex5-8.1} 化成等价的两层格式
+$$w_j^{n + 1} = \left( \begin{array}{cc}
+  r&0 \\
+  0&0
+ \end{array}  \right)
+ w_{j - 1}^n + \left( \begin{array}{cc}
+  0&1 \\
+  1&0
+ \end{array}  \right)
+ w_j^n + \left( \begin{array}{cc}
+   - r&0 \\
+   0&0
+ \end{array}  \right)
+ w_{j + 1}^n$$
+其中
+$${\left\{ \begin{array}{l}
+  w_j^n = (u_j^n,v_j^n)\\
+  v_j^{n + 1} = u_j^n
+ \end{array}  \right.^T}$$
+}}
+
+\frame{
+
+{\small
+令 $w_j^n = {w^n}{e^{i\alpha jh}}$, 可得其二阶增长矩阵
+$$G(\tau ,\alpha ) = \left[ \begin{array}{cc}
+   - i2r\sin \alpha h &1\\
+   1&   0
+ \end{array}  \right]$$
+其特征方程为
+$${\lambda ^2} + 2ir\sin (\alpha h)\lambda  - 1 = 0$$
+则其特征值为
+$${\lambda _{1,2}} =  - ir\sin \alpha h \pm \sqrt {1 - {r^2}{{\sin }^2}\alpha h} $$
+$$1 - {r^2}{\sin ^2}\alpha h \geqslant 0 \Leftrightarrow \left| r \right| \leqslant 1$$
+则
+\begin{equation}\label{*}
+{\left| \lambda  \right|^2} = {r^2}{\sin ^2}\alpha h + 1 - {r^2}{\sin ^2}\alpha h = 1
+\end{equation}
+所以 $\left| r \right| \leqslant 1$ 是格式稳定的必要条件.
+}}
+
+\frame{
+
+{\small
+现在验证 $\left| r \right| \leqslant 1$ 是充要条件. 即满足上章定理 4.4 的两个条件.
+
+由 \eqref{*} 式知条件 1 是成立的, 现验证条件 2：
+
+因为 $${\lambda _1} + {\lambda _2} =  - 2ir\sin \alpha h$$
+$${\lambda _1} - {\lambda _2} = 2\sqrt {1 - {r^2}{{\sin }^2}\alpha h} $$
+$$\left| {{\lambda _1}} \right| = \left| {{\lambda _2}} \right| = 1,~~1 - \left| {{\lambda _1}} \right| = 1 - \left| {{\lambda _2}} \right| = 0$$
+所以
+\begin{equation}\label{*1}
+\left| {1 - \left| {{\lambda _1}} \right|} \right| + \left| {{\lambda _1} - {\lambda _2}} \right| = 2\sqrt {1 - {r^2}{{\sin }^2}\alpha h}
+\end{equation}
+$$G(\theta ) - \frac{{{\lambda _1} + {\lambda _2}}}{2}I = \left[ \begin{array}{cc}
+   - ir\sin \alpha h &1\\
+   1& ir\sin \alpha h
+ \end{array}  \right]$$
+}}
+
+\frame{
+
+{\small
+因此
+\begin{equation}\label{*2}
+{\left\| {G(\theta ) - \frac{{{\lambda _1} + {\lambda _2}}}{2}I} \right\|_F} = \sqrt 2 \sqrt {1 - {r^2}{{\sin }^2}\alpha h}
+\end{equation}
+由 \eqref{*1}, \eqref{*2} 知, 存在 $M$, 使得
+$${\left\| {G(\theta ) - \frac{{{\lambda _1} + {\lambda _2}}}{2}I} \right\|_F} \leqslant M(\left| {1 - \left| {{\lambda _1}} \right|} \right| + \left| {{\lambda _1} - {\lambda _2}} \right|)$$
+所以条件 (2) 成立. 所以格式稳定的充要条件是 $\left| r \right| = \left| {\frac{{a\tau }}{h}} \right| \leqslant 1$.\qed
+}}
+
+
+
+\frame{
+
+{\small
+{\color{red}习题 $1^*$}~对于一般的 $\theta\in [0,1]$
+将三层差分格式 {\footnotesize\begin{eqnarray}\nonumber
+  &&\frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}\\\nonumber
+  &=& {a^2}\left[ {\theta \frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}}
+   + (1 - 2\theta )\frac{{u_{j + 1}^n - 2u_j^n +u_{j - 1}^n}}{{{h^2}}} \right.\\\label{ex5-1*.1}
+  &&\left.{+ \theta \frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray}}
+试写出其等价的两层差分格式：
+{\footnotesize\begin{equation}\label{ex5-1*.2} \left\{
+\begin{array}{l}
+   \frac{{v_j^{n + 1} - v_j^n}}{\tau } = a\frac{{\beta (w_{j + 1/2}^n - w_{j - 1/2}^n) + (2 - \beta )(w_{j + 1/2}^{n + 1} - w_{j - 1/2}^{n + 1})}}{{2h}}\\
+   \frac{{w_{j - 1/2}^{n + 1} - w_{j - 1/2}^n}}{\tau } = a\frac{{\alpha (v_j^{n + 1} - v_{j - 1}^{n + 1}) + (2 - \alpha )(v_j^n - v_{j - 1}^n)}}{{2h}}
+ \end{array} \right.
+\end{equation}}
+其中
+{\footnotesize\begin{equation}\label{ex5-1*.3}
+\left\{ \begin{array}{l}
+   v_j^k = \frac{{u_j^k - u_j^{k - 1}}}{\tau }\\
+   w_{j + 1/2}^k = a\frac{{\alpha \left( {u_{j + 1}^k - u_j^k} \right) + (2 - \alpha )\left( {u_{j + 1}^{k - 1} - u_j^{k - 1}} \right)}}{{2h}}
+        \end{array} \right.
+\end{equation}}
+ $\alpha$, $\beta$ 为待定系数.
+ }}
+
+\frame{
+
+{\small {\color{blue}解:} 首先验证 \eqref{ex5-1*.2} 的第二个式子. 将 \eqref{ex5-1*.3} 代入 \eqref{ex5-1*.2} 的左端, 有
+{\footnotesize\begin{eqnarray*}
+   &&\frac{{w_{j - 1/2}^{n + 1} - w_{j - 1/2}^n}}{\tau } \\
+   &&= a\frac{{[\frac{{\alpha \left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) + (2 - \alpha )\left( {u_j^n - u_{j - 1}^n} \right)}}{{2h}}] -
+    [\frac{{\alpha \left( {u_j^n - u_{j - 1}^n} \right) + (2 - \alpha )\left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}}{{2h}}]}}{\tau } \\
+  &&= \frac{a}{{2h}}[\frac{{\alpha \left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right)}}{\tau } +
+  \frac{{(2 - \alpha )\left( {u_j^n - u_{j - 1}^n} \right)}}{\tau }] \\
+  &&~~- [\frac{{\alpha \left( {u_j^n - u_{j - 1}^n} \right)}}{\tau } + \frac{{(2 - \alpha )\left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}}{\tau }]\\
+  &&= a\frac{{\alpha \frac{{\left( {u_j^{n + 1} - u_j^n} \right) - \left( {u_{j - 1}^{n + 1} - u_{j - 1}^n} \right)}}{\tau } +
+   (2 - \alpha )\frac{{\left( {u_j^n - u_j^{n - 1}} \right) - \left( {u_{j - 1}^n - u_{j - 1}^{n - 1}} \right)}}{\tau }}}{{2h}}\\
+  &&= a\frac{{\alpha (v_j^{n + 1} - v_{j - 1}^{n + 1}) + (2 - \alpha )(v_j^n - v_{j - 1}^n)}}{{2h}}=\mbox{右端}
+\end{eqnarray*}}
+即得 \eqref{ex5-1*.2} 第二个式子恒成立, 因此要写出 \eqref{ex5-1*.1} 的等价形式 \eqref{ex5-1*.2}, 只需通过验证 \eqref{ex5-1*.2} 的第一个式子确定适当的 $\alpha, \beta$ 即可.
+}}
+
+\frame{
+
+{\small
+将 \eqref{ex5-1*.3} 代入 \eqref{ex5-1*.2} 的第一个式子, 有
+{\footnotesize\begin{eqnarray*}
+  &&\frac{{u_j^{n + 1} - 2u_j^n + u_j^{n - 1}}}{{{\tau ^2}}}\\
+  &&= a\frac{{a\frac{{\beta \alpha \left( {u_{j + 1}^n - u_j^n} \right) + \beta (2 - \alpha )\left( {u_{j + 1}^{n - 1} - u_j^{n - 1}} \right)}}{{2h}}
+  + a\frac{{(2 - \beta )\alpha \left( {u_{j + 1}^{n + 1} - u_j^{n + 1}} \right) +
+  (2 - \beta )(2 - \alpha )\left( {u_{j + 1}^n - u_j^n} \right)}}{{2h}}}}{{2h}}\\
+  &&~~- a\frac{{a\frac{{\beta \alpha \left( {u_j^n - u_{j - 1}^n} \right) + \beta (2 - \alpha )\left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}}{{2h}}
+   + a\frac{{(2 - \beta )\alpha \left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) +
+   (2 - \beta )(2 - \alpha )\left( {u_j^n - u_{j - 1}^n} \right)}}{{2h}}}}{{2h}}\\
+  &&= \frac{{{a^2}}}{{4{h^2}}}\left[ {\beta \alpha \left( {u_{j + 1}^n - u_j^n} \right) +
+  \beta (2 - \alpha )\left( {u_{j + 1}^{n - 1} - u_j^{n - 1}} \right)}\right. \\
+  &&~~\left.{+ (2 - \beta )\alpha \left( {u_{j + 1}^{n + 1} - u_j^{n + 1}} \right) +
+  (2 - \beta )(2 - \alpha )\left( {u_{j + 1}^n - u_j^n} \right)} \right]  \\
+  &&~~- \frac{{{a^2}}}{{4{h^2}}}\left[ {\beta \alpha \left( {u_j^n - u_{j - 1}^n} \right) +
+  \beta (2 - \alpha )\left( {u_j^{n - 1} - u_{j - 1}^{n - 1}} \right)}\right.\\
+  &&~~\left.{+ (2 - \beta )\alpha \left( {u_j^{n + 1} - u_{j - 1}^{n + 1}} \right) +
+  (2 - \beta )(2 - \alpha )\left( {u_j^n - u_{j - 1}^n} \right)} \right]
+\end{eqnarray*}}
+}}
+
+\frame{
+
+{\small
+{\footnotesize\begin{eqnarray*}
+  &&= {a^2}\left[ {\frac{{(2 - \beta )\alpha }}{4}\frac{{u_{j + 1}^{n + 1} - 2u_j^{n + 1} + u_{j - 1}^{n + 1}}}{{{h^2}}}} \right.\\
+  && ~~+ \frac{{\beta \alpha  + (2 - \beta )(2 - \alpha )}}{4}\frac{{u_{j + 1}^n - 2u_j^n + u_{j - 1}^n}}{{{h^2}}}\\
+   &&~~\left. { + \frac{{\beta (2 - \alpha )}}{4}\frac{{u_{j + 1}^{n - 1} - 2u_j^{n - 1} + u_{j - 1}^{n - 1}}}{{{h^2}}}} \right]
+\end{eqnarray*}}
+因为上式应与 \eqref{ex5-1*.1} 等价, 所以
+{\footnotesize$$\left\{\begin{array}{l}\frac{{(2 - \beta )\alpha }}{4}=\theta\\
+\frac{{\beta \alpha  + (2 - \beta )(2 - \alpha )}}{4}=1-2\theta\\
+\frac{{\beta (2 - \alpha )}}{4}=\theta\end{array}\right.$$
+$\Rightarrow$
+$$\left\{\begin{array}{l}\alpha  = \beta\\
+\alpha (2 - \alpha ) = 4\theta\end{array}\right.$$ }
+
+}}
+
+
+
+\frame{
+
+{\small
+特别当 $\theta  = 1/4$ 时, 可取 $\alpha  = 1$; 当 $\theta  = 3/16$ 时, 可取 $\alpha  = 3/2$ 或 $1/2$\vskip 0.2cm
+综上, \eqref{ex5-1*.2} 实际可以写为
+$$\left\{ \begin{array}{l}
+   {\frac{{v_j^{n + 1} - v_j^n}}{\tau } = a\frac{{\alpha (w_{j + 1/2}^n - w_{j - 1/2}^n) +
+   (2 - \alpha )(w_{j + 1/2}^{n + 1} - w_{j - 1/2}^{n + 1})}}{{2h}}}  \\
+   {\frac{{w_{j - 1/2}^{n + 1} - w_{j - 1/2}^n}}{\tau } = a\frac{{\alpha (v_j^{n + 1} - v_{j - 1}^{n + 1}) +
+   (2 - \alpha )(v_j^n - v_{j - 1}^n)}}{{2h}}}
+ \end{array} \right.$$
+其中 $\alpha (2 - \alpha ) = 4\theta $.\qed
+}}
+
+
+\end{document}
