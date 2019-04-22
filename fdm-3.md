@@ -1,59 +1,128 @@
-# 一维激波管问题
+j 弦的横振动问题  
 
-## 物理背景
+## 模型
 
-冲量是力在时间上和积累。
-
-$$
-I = \int \mathbf F \mathrm d t
-$$ 
-
-物体动量随时间的变化率就是作用在物体上的力。
+波动方程的初值问题模型为
 
 $$
-\mathbf F = \frac{\mathrm d \mathbf p}{\mathrm d t} 
-= \frac{\mathrm d (m\mathbf v)}{\mathrm d t}
-= m\mathbf a
+\begin{array}{l}
+{
+\frac{\partial^{2} u}{\partial t^{2}}-a^{2} 
+\frac{\partial^{2} u}{\partial x^{2}} = 0,\quad -\infty<x<\infty,\quad t>0
+} \\ 
+{
+u(x, 0) = \phi_{0}(x), u_{t}(x, 0) = \phi_{1}(x),\quad -\infty<x<\infty
+}
+\end{array}
 $$ 
 
-所以冲量和动量之间的关系是
+## 有限差分离散
+
+给定空间和时间步长：$$h$$ 和 $$\tau$$，  对求解区域 $$G=(-\infty, \infty)
+\times(0, \infty)$$， 做均匀网格剖分，相应的 $$\theta$$ 格式为
+
 $$
-I = \int \frac{\mathrm d\mathbf p}{\mathrm d t}\mathrm d t 
-= \int \mathrm d\mathbf p 
-= \Delta p
+\begin{aligned} 
+& \frac{u_{j}^{n+1}-2 u_{j}^{n}+u_{j}^{n-1}}{\tau^{2}}\\ 
+= & a^{2} \left[\theta \frac{u_{j+1}^{n+1}-2 u_{j}^{n+1}+u_{j-1}^{n+1}}{h^{2}}
+\right.\\
+& + (1-2 \theta) \frac{u_{j+1}^{n}-2 u_{j}^{n}+u_{j-1}^{n}}{h^{2}}\\
+& + \left.\theta \frac{u_{j+1}^{n-1}-2 u_{j}^{n-1}+u_{j-1}^{n-1}}{h^{2}} 
+\right] \\
+\end{aligned}
+$$
+
+引入网比 
+
+$$
+r = \frac{a\tau}{h},
 $$ 
 
-对于定义在位移区间 $$[x_1(t), x_2(t)]$$ 上的函数 $$f(x, t)$$, 满足下面的关系式 
+可得
 
+$$
+\begin{aligned}
+& u_{j}^{n+1}-2 u_{j}^{n}+u_{j}^{n-1}\\
+= & r^2\left[\theta (u_{j+1}^{n+1}-2 u_{j}^{n+1}+u_{j-1}^{n+1})
+\right.\\
+& + (1-2 \theta) (u_{j+1}^{n}-2 u_{j}^{n}+u_{j-1}^{n})\\
+& + \left.\theta (u_{j+1}^{n-1}-2 u_{j}^{n-1}+u_{j-1}^{n-1}) 
+\right] \\
+\end{aligned}
+$$ 
+
+进一步变形可得：
+
+$$
+\begin{aligned}
+&-r^2\theta u_{j+1}^{n+1} + (1 + 2r^2 \theta) u_{j}^{n+1} 
+- r^2\theta u_{j-1}^{n+1} \\
+= & r^2(1 - 2\theta)u_{j+1}^n + \left(2 - 2r^2(1 - 2\theta)\right)u_{j}^n 
++ r^2(1 - 2\theta)u_{j-1}^n\\
+= & r^2\theta u_{j+1}^{n-1} -(2r^2\theta + 1) u_j^{n-1} + r^2\theta
+u_{j-1}^{n-1}
+\end{aligned}
+$$ 
+
+最后可得上述格式的矩阵形式
+$$
+A_0 U^{n+1} = A_1 U^{n} + A_2 U^{n-1}
+$$ 
+
+上面的格式中要用到过去两个时间层的函数值，所以必须知道第 0 层和第 1 层的函数值
+，才能用上面的格式进行计算。下面讨论如何构造第 1 层的函数值。首先假设第 0 层下
+在还有一个第 -1 层， 利用中心差分格式可得下式
+
+$$
+\frac{u_{j}^{1}-2 u_{j}^{0}+u_{j}^{-1}}{\tau^{2}}
+=a^{2}\frac{u_{j+1}^{0}-2 u_{j}^{0}+u_{j-1}^{0}}{h^{2}}
+$$ 
+
+用数值微分替代在第 0 层的导数条件
+
+$$
+\frac{u_{j}^{1}-u_{j}^{-1}}{2 \tau}=\phi_{1}\left(x_{j}\right)
+$$ 
+
+上面两式结合，消去 $$u_j^{-1}$$， 可得
+
+$$
+u_{j}^{1}=\frac{r^{2}}{2}\left[\phi_{0}\left(x_{j-1}\right)
++\phi_{0}\left(x_{j+1}\right)\right]
++\left(1-r^{2}\right) \phi_{0}\left(x_{j}\right)
++\tau \phi_{1}\left(x_{j}\right)
+$$ 
+
+
+## 数值实验
+
+利用有限差分法去求解
 $$
 \begin{align}
-&\frac{\mathrm d}{\mathrm d t} 
-\left(\int^{x_2(t)}_{x_1(t)} f(x, t)\mathrm d x\right) \\
-=& \int^{x_2(t)}_{x_1(t)} \frac{\partial f(x, t)}{\partial t}\mathrm d x +
-f(x_2(t), t) x_2'(t) - f(x_1(t), t)x_1'(t)\\
-= &\int^{x_2(t)}_{x_1(t)} \frac{\partial f(x, t)}{\partial t}\mathrm d t 
-+ \int^{x_2(t)}_{x_1(t)}\frac{\partial f(x, t)x'(t)}{\partial x} 
-\mathrm d x
+\frac{\partial^2 u}{\partial t^2} - a^2\frac{\partial^2 u}{\partial x^2} 
+= & 0, \quad 0 < x < 1, \quad 0 < t < 4, \\
+u(0,t)= & 0,\\ 
+u(1,t)= & 0,\\
+u(x,0)= & 
+\begin{cases} 
+\frac{0.5}{7}x, & x<0.7\\
+\frac{0.5}{3}(1-x), & x\geq 0.7
+\end{cases}\\
+u_t(x,0) = &0.
 \end{align}
 $$ 
-
-## 算法设计与数值实验
-
-
-$$
-$$ 
+其中系数 $$a^2=1$$。
 
 
-## 实验代码
-
+## Matlab 实现代码 
 
 ```
-function pde = model_data()
+function pde = model_data(t0, t1, x0, x1)
 % MODEL_DATA 模型数据
 
-pde = struct(
+pde = struct(...
     'init_solution', @init_solution, ...
-    'udt_initial', @udt_initial, ...
+    'init_dt_solution', @init_dt_solution, ...
     'left_solution', @left_solution, ...
     'right_solution', @right_solution, ...
     'source', @source, ...
@@ -62,13 +131,15 @@ pde = struct(
     'a', @a);
 
     function [T,tau] = time_grid(NT)
-        T = linspace(0,4,NT+1);
-        tau = 4/NT;
+        T = linspace(t0, t1, NT+1);
+        tau = (t1 - t0)/NT;
     end
+
     function [X,h] = space_grid(NS)
-        X = linspace(0,1,NS+1)';
-        h = 1/NS;
+        X = linspace(x0, x1, NS+1)';
+        h = (x1 - x0)/NS;
     end
+
     function u = init_solution(x)
         u = zeros(size(x));
         u(x < 0.7) = 0.5/7*x(x<0.7);
@@ -78,15 +149,19 @@ pde = struct(
     function u =init_dt_solution(x)
        u = zeros(size(x)); 
     end
+
     function u = left_solution(t)
         u = zeros(size(t));
     end
+
     function u = right_solution(t)
         u = zeros(size(t));
     end
+
     function f = source(x,t)
         f = zeros(size(x));
     end
+
     function a = a()
         a = 1;
     end
@@ -102,7 +177,11 @@ end
 %
 % 作者：魏华祎 <weihuayi@xtu.edu.cn> 
 
-pde = model_data(); %模型数据结构体
+t0 = 0;
+t1 = 4;
+x0 = 0;
+x1 = 1;
+pde = model_data(t0, t1, x0, x1); %模型数据结构体
 
 % 显格式
 [X,T,U] = wave_equation_fd1d(100,800,pde);
@@ -244,3 +323,6 @@ for i = 1:M
 end
 ```
 
+## 实验报告
+
+教材PP. 158. 习题4和5
