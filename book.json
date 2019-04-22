@@ -14,8 +14,7 @@
         "fontsettings", 
         "expandable-chapters-small", 
         "simple-page-toc",
-        "copy-code-button",
-        "ga"
+        "copy-code-button"
     ],
     "pluginsConfig": {
         "fontSettings": {
