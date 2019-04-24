@@ -325,4 +325,43 @@ end
 
 ## 实验报告
 
-教材PP. 158. 习题4和5
+利用下面差分格式
+
+$$
+\frac{u_{j}^{n+1}-2 u_{j}^{n}+u_{j}^{n-1}}{\tau^{2}} 
+=  a^{2} \frac{u_{j+1}^{n}-2 u_{j}^{n}+u_{j-1}^{n}}{h^{2}}
+$$
+其中 $$j=0, \pm 1, \pm 2, \cdots,\quad n = 1, 2, \cdots$$。
+
+及初始差分方程
+
+$$
+\begin{aligned}
+u_j^0 = \phi_0(x_j),\\
+\frac{u_j^1 - u_j^0}{\tau} = \phi_1(x_j).
+\end{aligned}
+$$ 
+
+数值求解
+
+$$
+\begin{array}{l}
+{
+\frac{\partial^{2} u}{\partial t^{2}}- 
+\frac{\partial^{2} u}{\partial x^{2}} = 0,\quad 0 <x<1,\quad t>0
+} \\ 
+{
+u(x, 0) = \phi_{0}(x), u_{t}(x, 0) = \phi_{1}(x),\quad 0<x<1,
+}\\
+u(0, t) = u(1, t) = 0, \quad t\leq=0.
+\end{array}
+$$ 
+其中 $$\phi_{0}(x) = \sin\pi x$$， $$\phi_1(x) = \cos\pi x$$。 真解为
+$$
+u(x, t) = \sin\pi (x - t) + \sin\pi (x + t).
+$$ 
+
+(1) 取 $$\tau = 0.05, h = 0.1$$, 画出时间层 $$t=0.5, 1.0, 1.5, 2.0$$ 的解的图像，并计
+算这些时间层上数值解与真解的误差。  
+(2) 取 $$\tau = h = 0.1$$, 画出时间层 $$t=0.5, 1.0, 1.5, 2.0$$ 的解的图像，并计
+算这些时间层上数值解与真解的误差。  
