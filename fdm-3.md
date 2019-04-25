@@ -59,7 +59,7 @@ $$
 - r^2\theta u_{j-1}^{n+1} \\
 = & r^2(1 - 2\theta)u_{j+1}^n + \left(2 - 2r^2(1 - 2\theta)\right)u_{j}^n 
 + r^2(1 - 2\theta)u_{j-1}^n\\
-= & r^2\theta u_{j+1}^{n-1} -(2r^2\theta + 1) u_j^{n-1} + r^2\theta
+ & + r^2\theta u_{j+1}^{n-1} -(2r^2\theta + 1) u_j^{n-1} + r^2\theta
 u_{j-1}^{n-1}
 \end{aligned}
 $$ 
@@ -358,7 +358,7 @@ u(0, t) = u(1, t) = 0, \quad t\leq=0.
 $$ 
 其中 $$\phi_{0}(x) = \sin\pi x$$， $$\phi_1(x) = \cos\pi x$$。 真解为
 $$
-u(x, t) = \sin\pi (x - t) + \sin\pi (x + t).
+u(x, t) = \frac{\sin\pi (x - t) + \sin\pi (x + t)}{2} + \frac{\sin\pi (x - t) + \sin\pi (x + t)}{2\pi}.
 $$ 
 
 (1) 取 $$\tau = 0.05, h = 0.1$$, 画出时间层 $$t=0.5, 1.0, 1.5, 2.0$$ 的解的图像，并计
