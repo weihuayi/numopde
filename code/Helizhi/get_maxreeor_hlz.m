@@ -9,4 +9,8 @@ l = 0.5/tau + 1;
 d = 0.5/tau;
 r = l+3*d;
 
-e = max(abs(u(:,l:d:r)-U(:,l:d:r)));
+%e = max(abs(u(:,l:d:r)-U(:,l:d:r)));
+
+disp([u(:, end), U(:, end)])
+
+e = max(max(abs(u - U)));

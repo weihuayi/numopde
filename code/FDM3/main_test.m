@@ -7,7 +7,7 @@
 % 作者：魏华祎 <weihuayi@xtu.edu.cn> 
 
 t0 = 0;
-t1 = 4;
+t1 = 2;
 x0 = 0;
 x1 = 1;
 pde = model_data(t0, t1, x0, x1); %模型数据结构体

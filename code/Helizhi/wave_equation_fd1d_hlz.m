@@ -25,7 +25,7 @@ r2 = r*r;
 U = zeros(N,M);
 % 初值条件
 U(:,1) = pde.init_solution(X); 
-U(2:end-1,2) =U(2:end-1,1)+ tau*pde.init_dt_solution(X(2:end-1));
+U(:, 2) =U(:, 1)+ tau*pde.init_dt_solution(X);
 % 边值条件
 U(1,:) = pde.left_solution(T);
 U(end,:) = pde.right_solution(T);
