@@ -266,6 +266,63 @@ uh(isFree) = A(isFree,isFree)\b(isFree);
 ```
 
 
+## 误差计算
+
+```Matlab
+function err = getL2error1d(node, elem, solution, uh, quadOrder)
+%% GETL2ERROR1D L2 norm of approximation of linear fintie
+%% element
+%
+% compute L2 error element-wise using quadrature rule with order
+% quadOrder
+
+NT = size(elem,1);
+err = zeros(NT,1);
+[lambda,weight] = quadpts1d(quadOrder);
+
+% basis function at quadrature points
+phi = lambda;
+
+nQuad = length(weight);
+for i = 1:nQuad
+    uhp = uh(elem(:,1))*phi(i,1) + uh(elem(:,2))*phi(i,2);
+    px = node(elem(:,1))*phi(i,1) + node(elem(:,2))*phi(i,2);
+    err = err + weight(i)*(solution(px) - uhp).^2;
+end
+
+lens = node(elem(:,2)) - node(elem(:,1));
+err = err.*lens;
+err = sqrt(sum(err));
+```
+
+```Matlab
+
+function err = getH1error1d(node, elem, grad_solution, uh, quadOrder)
+%% GETH1ERROR1D H1 norm of approximation error of linear finite
+%% element
+% 
+% compute H1 error element-wise using quadrature rule 
+% with order quadOrder
+
+NT = size(elem,1);
+err = zeros(NT,1);
+[lambda,weight] = quadpts1d(quadOrder);
+phi = lambda;
+lens = node(elem(:,2))-node(elem(:,1));
+Dphi = [-1./lens,1./lens];
+
+nQuad = length(weight);
+Duh = uh(elem(:,1)).*Dphi(:,1) + uh(elem(:,2)).*Dphi(:,2);
+
+for i = 1:nQuad
+    px = node(elem(:,1))*phi(i,1) + node(elem(:,2))*phi(i,2);
+    err = err + weight(i)*(grad_solution(px)-Duh).^2;
+end
+err = err.*lens;
+err = sqrt(sum(err));
+
+```
+
 ## 实验报告
 
 用线性有限元方法求边值问题：
@@ -282,7 +339,7 @@ $$
 u = e^x\sin(2\pi x)
 $$ 
 
-网格单元长度分别取为 $$[0.4, 0.2, 0.1, 0.05, 0.025, 0.0125]$$，用线性有限元求解
+网格单元长度分别取为 $$[0.2, 0.1, 0.05, 0.025, 0.0125]$$，用线性有限元求解
 ，计算有限元解与真解的 $$L^2$$ 误差
 
 $$
