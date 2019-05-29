@@ -1,103 +1,69 @@
-# Galerkin 算法设计、实现与数值实验
-
+# 一维有限元方法
 
 ## 模型问题
 
-考虑如下两点边值问题：
-
+我们考虑如下一维 Poisson 方程的线性有限元求解算法
 $$
-\left\{
-\begin{array}{l}
-{L u :=u^{\prime \prime}+u=-x, \quad 0<x<1} \\ 
-{u(0)=u(1)=0}
-\end{array}\right.
+-u''(x) = f(x), \text{ in } [0, 1],
 $$ 
-
-其真解为
-
+其中真解为 
 $$
-u(x)=\frac{\sin x}{\sin 1}-x
+u = \sin(4\pi x).
 $$ 
-
-令 
-$$
-H_{0}^{1}(I)=\left\{u \in H^{1}(I), u(0)=u(1)=0\right\},
-$$ 
-
-则上述问题的基于虚功方程的变分问题为： 求 $$u \in H_{0}^{1}(I)$$, 使得：
-
-$$
-a(u, v)=-(x, v), \forall v \in H_{0}^{1}(l)
-$$ 
-
-其中
-$$
-a(u, v)=(L u, v)=\int_{0}^{1}\left(-u^{\prime} v^{\prime}+u v\right) dx
-$$ 
-
-## 离散算法设计
-
-记 $$\omega(x)=x(1-x)$$, 引入 $$H_0^1(I)$$ 的 $$n$$ 维近似子空间
-
-$$
-U_{n}=\left\{\phi_{1}, \cdots, \phi_{n}\right\},
-\phi_{i}=\omega(x) x^{i-1}, i=1, \cdots, n
-$$
-
-上述问题可近似为：在空间 $$U_n$$ 中，找到一个近似解 
-
-$$
-u_{n}(x)=\sum_{i=1}^{n} c_{i} \phi_{i}(x)
-$$
-
-满足
-
-$$
-\sum_{j=1}^{n} a\left(\phi_{j}, \phi_{i}\right) c_{j}=
--\left(x, \phi_{i}\right), i=1,2, \cdots, n
-$$
-
 
 ## 程序实现
 
-
-### 模型数据
+### 测试模型数据
 
 ```matlab
-function pde = model_data()
-%% MODELDATA
-%  u(x) = sin(x)/sin(1) - x
-%  Du(x) = cos(x)/sin(1) -1 
-%  f(x) = -x
+function pde = sin4pidata( )
+%% SINDATA
+%
+%  u = sin(4*pi*x)
+%  f = 16*pi*pi*sin(4*pi*x)
+%  Du = 4*pi*cos(4*pi*x)
+%
 
-pde = struct('solution', @solution, 'source',@source, 'gradient', @gradient);
+pde = struct(...
+    'source', @source, ...
+    'solution', @solution, ...
+    'dirichlet', @dirichlet, ...
+    'grad_solution', @grad_solution);
 
-%% 精确解
-function z = solution(x)
-z = sin(x)/sin(1) - x;
+% right hand side function
+function z = source(p)
+    x = p;
+    z = 16*pi*pi*sin(4*pi*x);
 end
-%% 右端项
-function z = source(x)
-z = -x;
+
+function z = solution(p)
+    x = p;
+    z = sin(4*pi*x);
 end
-%% 精确解梯度
-function z = gradient(x)
-z = cos(x)/sin(1) - 1;
-end 
+
+% Dirichlet boundary condition
+function z = dirichlet(p)
+    x = p;
+    z = solution(p);
+end
+
+% Derivative of the exact solution
+function z = grad_solution(p)
+    x = p;
+    z = 4*pi*cos(4*pi*x);
+end
+
 end 
 ```
 
-### 数值积分点
+### 数值积分公式
 
-```matlab
-
-function [lambda,weight] = gquadpts1d(numPts)
-%% QUADPTS1d quadrature points in 1-D.
+```Matlab
+function [lambda, weight] = quadpts1d(order)
+%% QUADPTS1 quadrature points in 1-D.
 %
-% [lambda,weight] = QUADPTS1d(numPts) 
-%
-% Copyright (C) Long Chen. See COPYRIGHT.txt for details. 
 
+numPts = ceil((order+1)/2);
 
 if numPts > 10
    numPts = 10; 
@@ -109,7 +75,7 @@ switch numPts
         
     case 2
         A = [0.5773502691896257645091488 	1.0000000000000000000000000
-        -0.5773502691896257645091488 	1.0000000000000000000000000];
+            -0.5773502691896257645091488 	1.0000000000000000000000000];
         
     case 3
         A = [0 	0.8888888888888888888888889
@@ -179,122 +145,153 @@ switch numPts
             -0.8650633666889845107320967 	0.1494513491505805931457763
             -0.9739065285171717200779640 	0.0666713443086881375935688];
 end
-lambda = (A(:,1)+1)/2;
+lambda1 = (A(:,1)+1)/2;
+lambda2 = 1 - lambda1;
+lambda = [lambda1, lambda2];
 weight = A(:,2)/2;
 ```
 
-### 测试脚本
+### 网格生成
 
 ```matlab
+function [node, elem, bdFlag] = intervalmesh(a,b,h)
+%% INTERVALMESH the uniform mesh on interval [a,b] with size h.
+%
+% node(1:N,1): node(i) is the coordinate of i-th
+% mesh point.
+%
+% elem(1:NT,1:2): elem(j,1:2) are the indexes of the two end
+% vertices of j-th elements.
+%
 
-function Galerkin_test
-%% 准备初始数据
-
-% 微分方程模型数据。函数 modeldata 返回一个结构体 pde
-% pde.f : 右端项函数
-% pde.exactu : 真解函数
-% pde.Du ：真解导数
-pde = model_data();
-
-% 区间
-I = [0,1];
-
-% 空间维数（基函数个数）
-n = 3;
-
-% 积分精度
-option.quadOrder = 5;
-
-%% Galerkin 方法求解
-uh = Galerkin(pde,I,n,option);
-
-%% 显示数值解图像
-showsolution(uh,'-k');
-
-%% 计算代表点处真解和数值解
-x = [1/4, 1/2, 3/4];
-[v,~] = basis(x,n);
-format shorte
-u = pde.solution(x) 
-ux = v'*uh
+node = a:h:b;
+node = node';
+N = length(node);
+elem = [1:N-1;2:N];
+elem = elem';
+bdFlag = false(N,1);
+bdFlag([1,N]) = true;
 ```
 
-### 有限维空间
+### 测试脚本 
 
 ```matlab
-function [phi,gradPhi] = basis(x, n)
-%% BASIS 计算 n 维空间的 n 个基函数在 [x_1, x_2, ..., x_m] 点处的函数值与梯度值
-%
-%  H_0^1([0,1]) 的 n 维近似子空间 w(x) = x*(1-x)，n 个基函数分别为： 
-%          phi_i = w(x)*x^{i-1}, i = 1, 2,..., n
-%
-%  输入： 
-%   x: 空间离散点
-%   n: 空间维数 
-%
-%  输出： 
-%   phi(1:n, 1:m): phi(i, j) 为第 i 个基函数在第 x_j 点处的函数值。 
-%   gradPhi(1:n, 1:m): gradPhi(i, j) 为第 i 个基函数在 x_j 点处的导数值。 
+%% 一维有限元测试函数 
 
-m = length(x);
-X = ones(n+1, 1)*x;
-X = cumprod(X, 1);
-phi = X(1:n,:) - X(2:end, :);
-T = [ones(1, m);X(1:n-1, :)];
-gradPhi = diag(1:n)*T - diag(2:n+1)*X(1:n, :);
-```
+h = 0.1;
+a = 0;
+b = 1;
+pde = sin4pidata();
+option.fQuadOrder = 3;
+option.errQuadOder = 3;
 
-### Galerkin 算法实现
 
-```matlab
-function uh = Galerkin(pde, I, n, option)
-%% GALERKIN 组装矩阵  A 和右端向量 b， 并求解 
-%
-%   pde: 数据模型 
-%   I : 模型区间 
-%   n ：空间维数 
+maxIt = 5;
+errL2 = zeros(maxIt,1);
+errH1 = zeros(maxIt,1);
+N = zeros(maxIt,1);
 
-% 区间长度 
-h = I(2) - I(1);
-
-% 区间 [0,1] 上的 Gauss 积分点及权重 
-[lambda, weight] = gquadpts1d(option.quadOrder);
-
-% 积分点的个数
-nQuad = length(weight); 
-
-%% 构造矩阵 A 和 b
-A = zeros(n,n);
-b = zeros(n,1);
-for q = 1:nQuad
-  gx = lambda(q);
-  w = weight(q);
-  [phi, gradPhi] = basis(gx, n);
-  A = A + (-gradPhi*gradPhi' + phi*phi')*w;
-  b = b + pde.source(gx)*phi*w;
+for i = 1:maxIt
+    [node, elem, bdFlag] = intervalmesh(a,b,h/2^(i-1));
+    uh = Poisson1d(node, elem, pde, bdFlag, option);
+    N(i) = size(elem,1);
+    hold on
+    showsolution1d(node, uh);
+    
+    name = ['solution' int2str(N(i))];
+    errL2(i) = getL2error1d(node, elem, pde.solution, uh, option.errQuadOder);
+    errH1(i) = getH1error1d(node, elem, pde.grad_solution, uh, option.errQuadOder);
 end
-A = h*A;
-b = h*b;
 
-%% 求解
-uh = A\b;
+disp('L2 error:');
+disp(errL2);
+
+disp('H1 error:');
+disp(errH1);
+```
+
+### 有限元算法实现
+
+```matlab
+function uh = Poisson1d(node, elem, pde, bdFlag,option)
+%% POISSON1D solve 1d Poisson equation by P1 linear element.
+%
+%  uh = Poisson1d(node,elem,pde, bdFlag) produces linear 
+%  finite element approximation of 1d Poisson equation.
+
+N = size(node,1); NT = size(elem,1); Ndof = N;
+%% Compute geometric quantities and gradient of local basis
+lens = node(elem(:,2))-node(elem(:,1));
+Dphi = [-1./lens,1./lens];
+
+%% Assemble stiffness matrix
+A = sparse(Ndof,Ndof);
+for i = 1:2
+    for j = i:2
+        Aij = Dphi(:,i).*Dphi(:,j).*lens;
+        if (j==i)
+            A = A + sparse(elem(:,i), elem(:,j),Aij,Ndof,Ndof);
+        else
+            A = A + sparse([elem(:,i);elem(:,j)],[elem(:,j);elem(:,i)],...
+                [Aij; Aij],Ndof,Ndof);
+        end
+    end
+end
+
+%% Assemble the right hand side
+[lambda,weight] = quadpts1d(option.fQuadOrder);
+nQuad = length(weight);
+phi = lambda;
+bt = zeros(NT,2);
+for i = 1:nQuad
+    px = node(elem(:,1))*phi(i,1) + node(elem(:,2))*phi(i,2);
+    fp = pde.source(px);
+    for k = 1:2
+        bt(:,k) = bt(:,k) + weight(i)*fp.*phi(i,k);
+    end
+end
+bt = bt.*repmat(lens,1,2);
+b = accumarray(elem(:),bt(:),[Ndof 1]);
+clear bt px;
+
+%% modify left-hand vector
+isFixed = bdFlag;
+isFree = ~isFixed;
+uh = zeros(Ndof,1);
+uh(isFixed) = pde.dirichlet(node(isFixed));
+b = b - A*uh;
+
+%% solve 
+uh(isFree) = A(isFree,isFree)\b(isFree);
 ```
 
 
 ## 实验报告
 
-用 Ritz-Galerkin 方法求边值问题
+用线性有限元方法求边值问题：
 
 $$
 \begin{cases}
- u''+u=x^2, & 0 < x < 1,\\
- u(0) = 0, u(1) = 1
- \end{cases}
+ -u''(x) + u(x) = f(x) \text{ in } 0 < x < 1,\\
+ u(0) = u(1) = 0
+\end{cases}
 $$
 
-的第 $$n$$ 次近似 $$u_n(x)$$, 基函数为 $$\phi_i(x)=sin(i\pi x), i=1, 2,..., n$。
-并用表格列出 $$\frac{1}{4}, \frac{1}{2}, \frac{3}{4}$$
-三点处的真解和 $n=1, 2, 3, 4$ 时的数值解。
+其中真解为
+$$
+u = e^x\sin(2\pi x)
+$$ 
 
+网格单元长度分别取为 $$[0.4, 0.2, 0.1, 0.05, 0.025, 0.0125]$$，用线性有限元求解
+，计算有限元解与真解的 $$L^2$$ 误差
 
+$$
+\|u - u_h\|_{0} := \sqrt{\int_0^1 (u - u_h)^2\mathrm d x}
+$$ 
+
+和 $$H^1$$ 误差。
+
+$$
+\|u' - u_h'\|_{0} := \sqrt{\int_0^1 (u' - u_h')^2\mathrm d x}
+$$ 
 
