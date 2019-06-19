@@ -353,10 +353,20 @@ $$
 {
 u(x, 0) = \phi_{0}(x), u_{t}(x, 0) = \phi_{1}(x),\quad 0<x<1,
 }\\
-u(0, t) = u(1, t) = 0, \quad t\leq=0.
+u(0, t) = \varphi_{0}(t), u(1, t) = \varphi_{1}(t), \quad t\leq=0.
 \end{array}
 $$ 
-其中 $$\phi_{0}(x) = \sin\pi x$$， $$\phi_1(x) = \cos\pi x$$。 真解为
+其中 
+
+$$
+\phi_{0}(x) = \sin\pi x, \quad \phi_1(x) = \cos\pi x,
+$$
+
+$$
+\varphi_{0}(t) = \frac{\sin\pi t}{\pi}, \quad \varphi_1(t) = -\frac{\sin\pi t}{\pi}.
+$$
+
+真解为
 $$
 u(x, t) = \frac{\sin\pi (x - t) + \sin\pi (x + t)}{2} - \frac{\sin\pi (x - t) - \sin\pi (x + t)}{2\pi}.
 $$ 
